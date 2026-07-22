@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-34ab521dee0f1a42de49.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "openflex_ker_joint_panel",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "openflex_ker_joint_panel::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-openflex_ker_joint_panel-c325d75c2a67690343b3.json",
+					"name" : "openflex_ker_joint_panel",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "openflex_ker_joint_panel_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-openflex_ker_joint_panel_autogen-7df7772dc6ae38e1ce4f.json",
+					"name" : "openflex_ker_joint_panel_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "openflex_ker_joint_panel_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-openflex_ker_joint_panel_uninstall-75d085ead82a4c406e0c.json",
+					"name" : "openflex_ker_joint_panel_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-78bcf010510a0ba23fb6.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel",
+		"source" : "/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

@@ -1,0 +1,9 @@
+source;share/openflex_teleop_ker/hook/pythonpath.ps1
+source;share/openflex_teleop_ker/hook/pythonpath.dsv
+source;share/openflex_teleop_ker/hook/pythonpath.sh
+source;share/openflex_teleop_ker/hook/ament_prefix_path.ps1
+source;share/openflex_teleop_ker/hook/ament_prefix_path.dsv
+source;share/openflex_teleop_ker/hook/ament_prefix_path.sh
+source;../../build/openflex_teleop_ker/share/openflex_teleop_ker/hook/pythonpath_develop.ps1
+source;../../build/openflex_teleop_ker/share/openflex_teleop_ker/hook/pythonpath_develop.dsv
+source;../../build/openflex_teleop_ker/share/openflex_teleop_ker/hook/pythonpath_develop.sh

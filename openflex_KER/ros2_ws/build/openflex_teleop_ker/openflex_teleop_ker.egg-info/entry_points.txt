@@ -1,0 +1,4 @@
+[console_scripts]
+ker_arm_bridge_node = openflex_teleop_ker.arm_bridge_node:main
+ker_driver_node = openflex_teleop_ker.ker_driver_node:main
+

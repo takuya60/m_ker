@@ -1,0 +1,392 @@
+[0.000000] (-) TimerEvent: {}
+[0.000323] (openflex_ker_joint_panel) JobQueued: {'identifier': 'openflex_ker_joint_panel', 'dependencies': OrderedDict()}
+[0.000358] (openflex_teleop_ker) JobQueued: {'identifier': 'openflex_teleop_ker', 'dependencies': OrderedDict()}
+[0.000383] (openflex_ker_joint_panel) JobStarted: {'identifier': 'openflex_ker_joint_panel'}
+[0.003968] (openflex_teleop_ker) JobStarted: {'identifier': 'openflex_teleop_ker'}
+[0.010328] (openflex_ker_joint_panel) JobProgress: {'identifier': 'openflex_ker_joint_panel', 'progress': 'cmake'}
+[0.010882] (openflex_ker_joint_panel) Command: {'cmd': ['/usr/bin/cmake', '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel'], 'cwd': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel', 'env': OrderedDict([('CODEX_CI', '1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'alientek'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alientek'), ('LESS', '-R'), ('OLDPWD', '/home/alientek/openflex/openflex_KER/ros2_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('LSCOLORS', 'Gxfxcxdxbxegedabagacad'), ('ZSH', '/home/alientek/.oh-my-zsh'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('ROS_PYTHON_VERSION', '3'), ('LC_CTYPE', 'C.UTF-8'), ('MANAGERPID', '1154'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('NO_COLOR', '1'), ('P9K_TTY', 'old'), ('SYSTEMD_EXEC_PID', '1594'), ('COLORTERM', ''), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '21337'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alientek'), ('JOURNAL_STREAM', '8:27344'), ('_', '/usr/bin/colcon'), ('_P9K_SSH_TTY', '/dev/pts/4'), ('XDG_SESSION_CLASS', 'user'), ('ROS_VERSION', '2'), ('TERM', 'dumb'), ('USERNAME', 'alientek'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/alientek/.codex/tmp/arg0/codex-arg0E6Zpl1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('INVOCATION_ID', 'd74a0fb534ad4857838239029a1cb82b'), ('SESSION_MANAGER', 'local/alientek-virtual-machine:@/tmp/.ICE-unix/1338,unix/alientek-virtual-machine:/tmp/.ICE-unix/1338'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('IBUS_DISABLE_SNOOPER', '1'), ('LANG', 'C.UTF-8'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.ZG5BS3'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XMODIFIERS', '@im=ibus'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/usr/bin/zsh'), ('TERMINATOR_UUID', 'urn:uuid:513cddeb-b89c-434c-b9fd-fb3e9b1eddb2'), ('GDMSESSION', 'ubuntu'), ('QT_ACCESSIBILITY', '1'), ('CODEX_THREAD_ID', '019f70d1-7545-74c2-aa10-b9e29ae66923'), ('P9K_SSH', '0'), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('LC_ALL', 'C.UTF-8'), ('PWD', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel'), ('CODEX_MANAGED_PACKAGE_ROOT', '/usr/lib/node_modules/@openai/codex'), ('XDG_DATA_DIRS', '/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('_P9K_TTY', '/dev/pts/4'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.100017] (-) TimerEvent: {}
+[0.200320] (-) TimerEvent: {}
+[0.301059] (-) TimerEvent: {}
+[0.306158] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.401430] (-) TimerEvent: {}
+[0.422970] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.437912] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.501728] (-) TimerEvent: {}
+[0.521017] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.526582] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.527657] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.528682] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.533043] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.601895] (-) TimerEvent: {}
+[0.603874] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.609865] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.610187] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.610418] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.612518] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.702206] (-) TimerEvent: {}
+[0.803023] (-) TimerEvent: {}
+[0.859631] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.903384] (-) TimerEvent: {}
+[1.003844] (-) TimerEvent: {}
+[1.017796] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.062282] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found pluginlib: 5.1.4 (/opt/ros/humble/share/pluginlib/cmake)\n'}
+[1.104113] (-) TimerEvent: {}
+[1.158023] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.202859] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.9 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.204335] (-) TimerEvent: {}
+[1.211035] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.224881] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.9 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.245701] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.266395] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.304600] (-) TimerEvent: {}
+[1.334579] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.338418] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.376765] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[1.385941] (openflex_teleop_ker) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/build', '--no-deps', 'symlink_data'], 'cwd': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker', 'env': {'CODEX_CI': '1', 'LANGUAGE': 'zh_CN:zh', 'USER': 'alientek', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/alientek', 'LESS': '-R', 'OLDPWD': '/home/alientek/openflex/openflex_KER/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'LSCOLORS': 'Gxfxcxdxbxegedabagacad', 'ZSH': '/home/alientek/.oh-my-zsh', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'PAGER': 'cat', 'ROS_PYTHON_VERSION': '3', 'LC_CTYPE': 'C.UTF-8', 'MANAGERPID': '1154', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'NO_COLOR': '1', 'P9K_TTY': 'old', 'SYSTEMD_EXEC_PID': '1594', 'COLORTERM': '', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '21337', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'humble', 'LOGNAME': 'alientek', 'JOURNAL_STREAM': '8:27344', '_': '/usr/bin/colcon', '_P9K_SSH_TTY': '/dev/pts/4', 'XDG_SESSION_CLASS': 'user', 'ROS_VERSION': '2', 'TERM': 'dumb', 'USERNAME': 'alientek', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/alientek/.codex/tmp/arg0/codex-arg0E6Zpl1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'INVOCATION_ID': 'd74a0fb534ad4857838239029a1cb82b', 'SESSION_MANAGER': 'local/alientek-virtual-machine:@/tmp/.ICE-unix/1338,unix/alientek-virtual-machine:/tmp/.ICE-unix/1338', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_MENU_PREFIX': 'gnome-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'IBUS_DISABLE_SNOOPER': '1', 'LANG': 'C.UTF-8', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'GH_PAGER': 'cat', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.ZG5BS3', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XMODIFIERS': '@im=ibus', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/usr/bin/zsh', 'TERMINATOR_UUID': 'urn:uuid:513cddeb-b89c-434c-b9fd-fb3e9b1eddb2', 'GDMSESSION': 'ubuntu', 'QT_ACCESSIBILITY': '1', 'CODEX_THREAD_ID': '019f70d1-7545-74c2-aa10-b9e29ae66923', 'P9K_SSH': '0', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'ibus', 'LC_ALL': 'C.UTF-8', 'PWD': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker', 'CODEX_MANAGED_PACKAGE_ROOT': '/usr/lib/node_modules/@openai/codex', 'XDG_DATA_DIRS': '/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', '_P9K_TTY': '/dev/pts/4', 'PYTHONPATH': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CODEX_MANAGED_BY_NPM': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[1.405286] (-) TimerEvent: {}
+[1.470081] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[1.474610] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[1.505618] (-) TimerEvent: {}
+[1.506434] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.511754] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[1.528287] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND\n'}
+[1.548760] (openflex_ker_joint_panel) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.567021] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.605875] (-) TimerEvent: {}
+[1.707302] (-) TimerEvent: {}
+[1.716701] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.717085] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.779055] (openflex_teleop_ker) StdoutLine: {'line': b'running develop\n'}
+[1.811533] (-) TimerEvent: {}
+[1.843550] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.845596] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.912212] (-) TimerEvent: {}
+[1.934520] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found rviz_common: 11.2.27 (/opt/ros/humble/share/rviz_common/cmake)\n'}
+[1.943674] (openflex_ker_joint_panel) StdoutLine: {'line': b"-- Setting assimp_DIR to: '/opt/ros/humble/share/rviz_assimp_vendor/cmake/../../../opt/rviz_assimp_vendor/lib/cmake/assimp-4.1'\n"}
+[1.953501] (openflex_ker_joint_panel) StdoutLine: {'line': b"-- Setting OGRE_DIR to: '/opt/ros/humble/share/rviz_ogre_vendor/cmake/../../../opt/rviz_ogre_vendor/lib/OGRE/cmake'\n"}
+[1.955453] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found OGRE\n'}
+[1.955990] (openflex_ker_joint_panel) StdoutLine: {'line': b'--   static     : OFF\n'}
+[1.956569] (openflex_ker_joint_panel) StdoutLine: {'line': b'--   components : HLMS;MeshLodGenerator;Overlay;Paging;Property;RTShaderSystem;Terrain;Volume\n'}
+[1.956766] (openflex_ker_joint_panel) StdoutLine: {'line': b'--   plugins    : Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI\n'}
+[1.956866] (openflex_ker_joint_panel) StdoutLine: {'line': b'--   media      : /opt/ros/humble/opt/rviz_ogre_vendor/share/OGRE/Media\n'}
+[1.956972] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- OGRE_LIBRARIES: OgreHLMS;OgreMeshLodGenerator;OgreOverlay;OgrePaging;OgreProperty;OgreRTShaderSystem;OgreTerrain;OgreVolume;OgreMain\n'}
+[1.957050] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- OGRE_LIBRARY_DIRS: /opt/ros/humble/opt/rviz_ogre_vendor/lib\n'}
+[1.957141] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- OGRE_PLUGINS: Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI\n'}
+[1.957229] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- OGRE_PLUGIN_DIR: /opt/ros/humble/opt/rviz_ogre_vendor/lib/OGRE\n'}
+[1.957333] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so\n'}
+[1.957524] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so\n'}
+[1.957649] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so\n'}
+[1.957732] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so\n'}
+[1.958142] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Could not find freeimage library\n'}
+[1.991276] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") \n'}
+[2.003261] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   \n'}
+[2.012626] (-) TimerEvent: {}
+[2.016351] (openflex_teleop_ker) StdoutLine: {'line': b'running egg_info\n'}
+[2.016851] (openflex_teleop_ker) StdoutLine: {'line': b'creating openflex_teleop_ker.egg-info\n'}
+[2.017002] (openflex_teleop_ker) StdoutLine: {'line': b'writing openflex_teleop_ker.egg-info/PKG-INFO\n'}
+[2.017598] (openflex_teleop_ker) StdoutLine: {'line': b'writing dependency_links to openflex_teleop_ker.egg-info/dependency_links.txt\n'}
+[2.018370] (openflex_teleop_ker) StdoutLine: {'line': b'writing entry points to openflex_teleop_ker.egg-info/entry_points.txt\n'}
+[2.018839] (openflex_teleop_ker) StdoutLine: {'line': b'writing requirements to openflex_teleop_ker.egg-info/requires.txt\n'}
+[2.019560] (openflex_teleop_ker) StdoutLine: {'line': b'writing top-level names to openflex_teleop_ker.egg-info/top_level.txt\n'}
+[2.020070] (openflex_teleop_ker) StdoutLine: {'line': b"writing manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'\n"}
+[2.021108] (openflex_teleop_ker) StdoutLine: {'line': b"reading manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'\n"}
+[2.022038] (openflex_teleop_ker) StdoutLine: {'line': b"writing manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'\n"}
+[2.024236] (openflex_teleop_ker) StdoutLine: {'line': b'running build_ext\n'}
+[2.024955] (openflex_teleop_ker) StdoutLine: {'line': b'Creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/python3.10/site-packages/openflex-teleop-ker.egg-link (link to .)\n'}
+[2.025741] (openflex_teleop_ker) StdoutLine: {'line': b'Installing ker_arm_bridge_node script to /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/openflex_teleop_ker\n'}
+[2.027011] (openflex_teleop_ker) StdoutLine: {'line': b'Installing ker_driver_node script to /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/openflex_teleop_ker\n'}
+[2.027744] (openflex_teleop_ker) StdoutLine: {'line': b'\n'}
+[2.028005] (openflex_teleop_ker) StdoutLine: {'line': b'Installed /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker\n'}
+[2.028104] (openflex_teleop_ker) StdoutLine: {'line': b'running symlink_data\n'}
+[2.028353] (openflex_teleop_ker) StdoutLine: {'line': b'creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index\n'}
+[2.028491] (openflex_teleop_ker) StdoutLine: {'line': b'creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index\n'}
+[2.028643] (openflex_teleop_ker) StdoutLine: {'line': b'creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index/packages\n'}
+[2.028771] (openflex_teleop_ker) StdoutLine: {'line': b'symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/resource/openflex_teleop_ker -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index/packages\n'}
+[2.028895] (openflex_teleop_ker) StdoutLine: {'line': b'symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/package.xml -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker\n'}
+[2.029019] (openflex_teleop_ker) StdoutLine: {'line': b'creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/config\n'}
+[2.029158] (openflex_teleop_ker) StdoutLine: {'line': b'symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/config/openflex_ker.yaml -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/config\n'}
+[2.029329] (openflex_teleop_ker) StdoutLine: {'line': b'creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/launch\n'}
+[2.029488] (openflex_teleop_ker) StdoutLine: {'line': b'symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/launch/openflex_ker_teleop.launch.py -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/launch\n'}
+[2.079857] (openflex_teleop_ker) CommandEnded: {'returncode': 0}
+[2.103366] (openflex_teleop_ker) JobEnded: {'identifier': 'openflex_teleop_ker', 'rc': 0}
+[2.113228] (-) TimerEvent: {}
+[2.185065] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found X11: /usr/include   \n'}
+[2.186787] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so\n'}
+[2.213735] (-) TimerEvent: {}
+[2.305475] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so - found\n'}
+[2.305996] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for gethostbyname\n'}
+[2.314167] (-) TimerEvent: {}
+[2.395797] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for gethostbyname - found\n'}
+[2.396132] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for connect\n'}
+[2.414623] (-) TimerEvent: {}
+[2.478656] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for connect - found\n'}
+[2.478887] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for remove\n'}
+[2.515114] (-) TimerEvent: {}
+[2.575739] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for remove - found\n'}
+[2.575967] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for shmat\n'}
+[2.615438] (-) TimerEvent: {}
+[2.673366] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for shmat - found\n'}
+[2.673758] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for IceConnectionNumber in ICE\n'}
+[2.715781] (-) TimerEvent: {}
+[2.776781] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Looking for IceConnectionNumber in ICE - found\n'}
+[2.816303] (-) TimerEvent: {}
+[2.878547] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- library: /usr/lib/x86_64-linux-gnu/libcurl.so\n'}
+[2.917240] (-) TimerEvent: {}
+[2.941813] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found Eigen3: TRUE (found version "3.4.0") \n'}
+[2.942040] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[3.017510] (-) TimerEvent: {}
+[3.064320] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Found std_srvs: 4.9.1 (/opt/ros/humble/share/std_srvs/cmake)\n'}
+[3.117970] (-) TimerEvent: {}
+[3.169807] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Configuring done\n'}
+[3.205672] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Generating done\n'}
+[3.210447] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Build files have been written to: /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel\n'}
+[3.218173] (-) TimerEvent: {}
+[3.220919] (openflex_ker_joint_panel) CommandEnded: {'returncode': 0}
+[3.223077] (openflex_ker_joint_panel) JobProgress: {'identifier': 'openflex_ker_joint_panel', 'progress': 'build'}
+[3.223234] (openflex_ker_joint_panel) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel', '--', '-j12', '-l12'], 'cwd': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel', 'env': OrderedDict([('CODEX_CI', '1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'alientek'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alientek'), ('LESS', '-R'), ('OLDPWD', '/home/alientek/openflex/openflex_KER/ros2_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('LSCOLORS', 'Gxfxcxdxbxegedabagacad'), ('ZSH', '/home/alientek/.oh-my-zsh'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('ROS_PYTHON_VERSION', '3'), ('LC_CTYPE', 'C.UTF-8'), ('MANAGERPID', '1154'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('NO_COLOR', '1'), ('P9K_TTY', 'old'), ('SYSTEMD_EXEC_PID', '1594'), ('COLORTERM', ''), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '21337'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alientek'), ('JOURNAL_STREAM', '8:27344'), ('_', '/usr/bin/colcon'), ('_P9K_SSH_TTY', '/dev/pts/4'), ('XDG_SESSION_CLASS', 'user'), ('ROS_VERSION', '2'), ('TERM', 'dumb'), ('USERNAME', 'alientek'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/alientek/.codex/tmp/arg0/codex-arg0E6Zpl1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('INVOCATION_ID', 'd74a0fb534ad4857838239029a1cb82b'), ('SESSION_MANAGER', 'local/alientek-virtual-machine:@/tmp/.ICE-unix/1338,unix/alientek-virtual-machine:/tmp/.ICE-unix/1338'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('IBUS_DISABLE_SNOOPER', '1'), ('LANG', 'C.UTF-8'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.ZG5BS3'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XMODIFIERS', '@im=ibus'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/usr/bin/zsh'), ('TERMINATOR_UUID', 'urn:uuid:513cddeb-b89c-434c-b9fd-fb3e9b1eddb2'), ('GDMSESSION', 'ubuntu'), ('QT_ACCESSIBILITY', '1'), ('CODEX_THREAD_ID', '019f70d1-7545-74c2-aa10-b9e29ae66923'), ('P9K_SSH', '0'), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('LC_ALL', 'C.UTF-8'), ('PWD', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel'), ('CODEX_MANAGED_PACKAGE_ROOT', '/usr/lib/node_modules/@openai/codex'), ('XDG_DATA_DIRS', '/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('_P9K_TTY', '/dev/pts/4'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[3.279919] (openflex_ker_joint_panel) StdoutLine: {'line': b'[ 25%] Automatic MOC for target openflex_ker_joint_panel\n'}
+[3.318392] (-) TimerEvent: {}
+[3.418949] (-) TimerEvent: {}
+[3.520322] (-) TimerEvent: {}
+[3.620988] (-) TimerEvent: {}
+[3.721597] (-) TimerEvent: {}
+[3.821865] (-) TimerEvent: {}
+[3.922557] (-) TimerEvent: {}
+[4.022963] (-) TimerEvent: {}
+[4.064782] (openflex_ker_joint_panel) StdoutLine: {'line': b'[ 25%] Built target openflex_ker_joint_panel_autogen\n'}
+[4.091451] (openflex_ker_joint_panel) StdoutLine: {'line': b'[ 75%] Building CXX object CMakeFiles/openflex_ker_joint_panel.dir/src/joint_angle_panel.cpp.o\n'}
+[4.091745] (openflex_ker_joint_panel) StdoutLine: {'line': b'[ 75%] Building CXX object CMakeFiles/openflex_ker_joint_panel.dir/openflex_ker_joint_panel_autogen/mocs_compilation.cpp.o\n'}
+[4.123332] (-) TimerEvent: {}
+[4.224021] (-) TimerEvent: {}
+[4.325081] (-) TimerEvent: {}
+[4.425665] (-) TimerEvent: {}
+[4.526257] (-) TimerEvent: {}
+[4.627826] (-) TimerEvent: {}
+[4.728627] (-) TimerEvent: {}
+[4.829040] (-) TimerEvent: {}
+[4.929673] (-) TimerEvent: {}
+[5.030151] (-) TimerEvent: {}
+[5.131196] (-) TimerEvent: {}
+[5.231604] (-) TimerEvent: {}
+[5.332245] (-) TimerEvent: {}
+[5.432651] (-) TimerEvent: {}
+[5.533881] (-) TimerEvent: {}
+[5.634285] (-) TimerEvent: {}
+[5.734595] (-) TimerEvent: {}
+[5.835008] (-) TimerEvent: {}
+[5.935373] (-) TimerEvent: {}
+[6.035843] (-) TimerEvent: {}
+[6.136189] (-) TimerEvent: {}
+[6.236604] (-) TimerEvent: {}
+[6.337243] (-) TimerEvent: {}
+[6.438251] (-) TimerEvent: {}
+[6.539656] (-) TimerEvent: {}
+[6.640213] (-) TimerEvent: {}
+[6.740662] (-) TimerEvent: {}
+[6.841446] (-) TimerEvent: {}
+[6.942023] (-) TimerEvent: {}
+[7.042618] (-) TimerEvent: {}
+[7.143160] (-) TimerEvent: {}
+[7.243891] (-) TimerEvent: {}
+[7.344373] (-) TimerEvent: {}
+[7.445642] (-) TimerEvent: {}
+[7.546263] (-) TimerEvent: {}
+[7.646685] (-) TimerEvent: {}
+[7.747650] (-) TimerEvent: {}
+[7.848288] (-) TimerEvent: {}
+[7.949340] (-) TimerEvent: {}
+[8.050111] (-) TimerEvent: {}
+[8.150671] (-) TimerEvent: {}
+[8.251211] (-) TimerEvent: {}
+[8.351663] (-) TimerEvent: {}
+[8.452332] (-) TimerEvent: {}
+[8.552858] (-) TimerEvent: {}
+[8.653693] (-) TimerEvent: {}
+[8.754100] (-) TimerEvent: {}
+[8.854818] (-) TimerEvent: {}
+[8.955166] (-) TimerEvent: {}
+[9.055882] (-) TimerEvent: {}
+[9.156626] (-) TimerEvent: {}
+[9.257504] (-) TimerEvent: {}
+[9.358108] (-) TimerEvent: {}
+[9.459124] (-) TimerEvent: {}
+[9.559567] (-) TimerEvent: {}
+[9.660034] (-) TimerEvent: {}
+[9.760404] (-) TimerEvent: {}
+[9.860729] (-) TimerEvent: {}
+[9.961355] (-) TimerEvent: {}
+[10.061648] (-) TimerEvent: {}
+[10.162434] (-) TimerEvent: {}
+[10.263750] (-) TimerEvent: {}
+[10.364375] (-) TimerEvent: {}
+[10.464848] (-) TimerEvent: {}
+[10.565385] (-) TimerEvent: {}
+[10.665902] (-) TimerEvent: {}
+[10.766307] (-) TimerEvent: {}
+[10.866656] (-) TimerEvent: {}
+[10.967472] (-) TimerEvent: {}
+[11.067922] (-) TimerEvent: {}
+[11.168534] (-) TimerEvent: {}
+[11.269098] (-) TimerEvent: {}
+[11.369793] (-) TimerEvent: {}
+[11.470259] (-) TimerEvent: {}
+[11.570653] (-) TimerEvent: {}
+[11.671015] (-) TimerEvent: {}
+[11.771514] (-) TimerEvent: {}
+[11.872067] (-) TimerEvent: {}
+[11.972447] (-) TimerEvent: {}
+[12.074495] (-) TimerEvent: {}
+[12.175544] (-) TimerEvent: {}
+[12.276291] (-) TimerEvent: {}
+[12.376934] (-) TimerEvent: {}
+[12.477273] (-) TimerEvent: {}
+[12.578028] (-) TimerEvent: {}
+[12.678701] (-) TimerEvent: {}
+[12.779346] (-) TimerEvent: {}
+[12.879809] (-) TimerEvent: {}
+[12.980327] (-) TimerEvent: {}
+[13.080854] (-) TimerEvent: {}
+[13.181475] (-) TimerEvent: {}
+[13.282311] (-) TimerEvent: {}
+[13.382651] (-) TimerEvent: {}
+[13.482975] (-) TimerEvent: {}
+[13.583843] (-) TimerEvent: {}
+[13.684493] (-) TimerEvent: {}
+[13.784895] (-) TimerEvent: {}
+[13.885528] (-) TimerEvent: {}
+[13.986249] (-) TimerEvent: {}
+[14.086699] (-) TimerEvent: {}
+[14.187849] (-) TimerEvent: {}
+[14.288490] (-) TimerEvent: {}
+[14.389109] (-) TimerEvent: {}
+[14.489638] (-) TimerEvent: {}
+[14.590012] (-) TimerEvent: {}
+[14.690505] (-) TimerEvent: {}
+[14.791202] (-) TimerEvent: {}
+[14.891889] (-) TimerEvent: {}
+[14.992358] (-) TimerEvent: {}
+[15.093103] (-) TimerEvent: {}
+[15.193496] (-) TimerEvent: {}
+[15.293800] (-) TimerEvent: {}
+[15.394290] (-) TimerEvent: {}
+[15.494550] (-) TimerEvent: {}
+[15.594830] (-) TimerEvent: {}
+[15.695543] (-) TimerEvent: {}
+[15.795852] (-) TimerEvent: {}
+[15.896170] (-) TimerEvent: {}
+[15.996633] (-) TimerEvent: {}
+[16.096900] (-) TimerEvent: {}
+[16.197476] (-) TimerEvent: {}
+[16.298078] (-) TimerEvent: {}
+[16.398699] (-) TimerEvent: {}
+[16.499059] (-) TimerEvent: {}
+[16.599555] (-) TimerEvent: {}
+[16.699869] (-) TimerEvent: {}
+[16.800232] (-) TimerEvent: {}
+[16.900683] (-) TimerEvent: {}
+[17.000961] (-) TimerEvent: {}
+[17.101365] (-) TimerEvent: {}
+[17.201848] (-) TimerEvent: {}
+[17.302100] (-) TimerEvent: {}
+[17.402458] (-) TimerEvent: {}
+[17.502886] (-) TimerEvent: {}
+[17.603398] (-) TimerEvent: {}
+[17.703759] (-) TimerEvent: {}
+[17.804339] (-) TimerEvent: {}
+[17.904846] (-) TimerEvent: {}
+[18.005404] (-) TimerEvent: {}
+[18.105846] (-) TimerEvent: {}
+[18.206319] (-) TimerEvent: {}
+[18.306661] (-) TimerEvent: {}
+[18.407610] (-) TimerEvent: {}
+[18.508115] (-) TimerEvent: {}
+[18.608489] (-) TimerEvent: {}
+[18.708744] (-) TimerEvent: {}
+[18.809542] (-) TimerEvent: {}
+[18.909853] (-) TimerEvent: {}
+[19.010188] (-) TimerEvent: {}
+[19.110652] (-) TimerEvent: {}
+[19.211257] (-) TimerEvent: {}
+[19.311930] (-) TimerEvent: {}
+[19.412495] (-) TimerEvent: {}
+[19.513243] (-) TimerEvent: {}
+[19.613903] (-) TimerEvent: {}
+[19.714185] (-) TimerEvent: {}
+[19.814495] (-) TimerEvent: {}
+[19.914744] (-) TimerEvent: {}
+[20.015168] (-) TimerEvent: {}
+[20.115588] (-) TimerEvent: {}
+[20.216268] (-) TimerEvent: {}
+[20.316823] (-) TimerEvent: {}
+[20.417412] (-) TimerEvent: {}
+[20.517766] (-) TimerEvent: {}
+[20.618626] (-) TimerEvent: {}
+[20.719160] (-) TimerEvent: {}
+[20.819429] (-) TimerEvent: {}
+[20.919854] (-) TimerEvent: {}
+[21.020350] (-) TimerEvent: {}
+[21.120940] (-) TimerEvent: {}
+[21.221372] (-) TimerEvent: {}
+[21.322205] (-) TimerEvent: {}
+[21.422757] (-) TimerEvent: {}
+[21.523151] (-) TimerEvent: {}
+[21.570107] (openflex_ker_joint_panel) StdoutLine: {'line': b'[100%] Linking CXX shared library libopenflex_ker_joint_panel.so\n'}
+[21.623876] (-) TimerEvent: {}
+[21.724434] (-) TimerEvent: {}
+[21.824963] (-) TimerEvent: {}
+[21.925455] (-) TimerEvent: {}
+[22.025897] (-) TimerEvent: {}
+[22.126369] (-) TimerEvent: {}
+[22.226797] (-) TimerEvent: {}
+[22.327139] (-) TimerEvent: {}
+[22.428062] (-) TimerEvent: {}
+[22.528933] (-) TimerEvent: {}
+[22.629634] (-) TimerEvent: {}
+[22.730550] (-) TimerEvent: {}
+[22.831019] (-) TimerEvent: {}
+[22.931408] (-) TimerEvent: {}
+[23.031707] (-) TimerEvent: {}
+[23.132097] (-) TimerEvent: {}
+[23.232466] (-) TimerEvent: {}
+[23.332950] (-) TimerEvent: {}
+[23.433451] (-) TimerEvent: {}
+[23.449987] (openflex_ker_joint_panel) StdoutLine: {'line': b'[100%] Built target openflex_ker_joint_panel\n'}
+[23.462395] (openflex_ker_joint_panel) CommandEnded: {'returncode': 0}
+[23.463682] (openflex_ker_joint_panel) JobProgress: {'identifier': 'openflex_ker_joint_panel', 'progress': 'install'}
+[23.473043] (openflex_ker_joint_panel) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel'], 'cwd': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel', 'env': OrderedDict([('CODEX_CI', '1'), ('LANGUAGE', 'zh_CN:zh'), ('USER', 'alientek'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/alientek'), ('LESS', '-R'), ('OLDPWD', '/home/alientek/openflex/openflex_KER/ros2_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('LSCOLORS', 'Gxfxcxdxbxegedabagacad'), ('ZSH', '/home/alientek/.oh-my-zsh'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('PAGER', 'cat'), ('ROS_PYTHON_VERSION', '3'), ('LC_CTYPE', 'C.UTF-8'), ('MANAGERPID', '1154'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('NO_COLOR', '1'), ('P9K_TTY', 'old'), ('SYSTEMD_EXEC_PID', '1594'), ('COLORTERM', ''), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '21337'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'alientek'), ('JOURNAL_STREAM', '8:27344'), ('_', '/usr/bin/colcon'), ('_P9K_SSH_TTY', '/dev/pts/4'), ('XDG_SESSION_CLASS', 'user'), ('ROS_VERSION', '2'), ('TERM', 'dumb'), ('USERNAME', 'alientek'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/home/alientek/.codex/tmp/arg0/codex-arg0E6Zpl1:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('INVOCATION_ID', 'd74a0fb534ad4857838239029a1cb82b'), ('SESSION_MANAGER', 'local/alientek-virtual-machine:@/tmp/.ICE-unix/1338,unix/alientek-virtual-machine:/tmp/.ICE-unix/1338'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_MENU_PREFIX', 'gnome-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('IBUS_DISABLE_SNOOPER', '1'), ('LANG', 'C.UTF-8'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('GH_PAGER', 'cat'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.ZG5BS3'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XMODIFIERS', '@im=ibus'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/usr/bin/zsh'), ('TERMINATOR_UUID', 'urn:uuid:513cddeb-b89c-434c-b9fd-fb3e9b1eddb2'), ('GDMSESSION', 'ubuntu'), ('QT_ACCESSIBILITY', '1'), ('CODEX_THREAD_ID', '019f70d1-7545-74c2-aa10-b9e29ae66923'), ('P9K_SSH', '0'), ('GIT_PAGER', 'cat'), ('QT_IM_MODULE', 'ibus'), ('LC_ALL', 'C.UTF-8'), ('PWD', '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel'), ('CODEX_MANAGED_PACKAGE_ROOT', '/usr/lib/node_modules/@openai/codex'), ('XDG_DATA_DIRS', '/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('_P9K_TTY', '/dev/pts/4'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CODEX_MANAGED_BY_NPM', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[23.481052] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[23.481663] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[23.482130] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/plugins/plugin_description.xml\n'}
+[23.493927] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/lib/libopenflex_ker_joint_panel.so\n'}
+[23.504467] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/include/openflex_ker_joint_panel/joint_angle_panel.hpp\n'}
+[23.514093] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Up-to-date symlink: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/plugins/plugin_description.xml\n'}
+[23.514631] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/resource/openflex_ker_joint_panel\n'}
+[23.525547] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/library_path.sh\n'}
+[23.533629] (-) TimerEvent: {}
+[23.537735] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/library_path.dsv\n'}
+[23.547310] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/package_run_dependencies/openflex_ker_joint_panel\n'}
+[23.556272] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/parent_prefix_path/openflex_ker_joint_panel\n'}
+[23.570055] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/ament_prefix_path.sh\n'}
+[23.589110] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/ament_prefix_path.dsv\n'}
+[23.606231] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/path.sh\n'}
+[23.629986] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/path.dsv\n'}
+[23.634586] (-) TimerEvent: {}
+[23.650901] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.bash\n'}
+[23.662156] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.sh\n'}
+[23.673411] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.zsh\n'}
+[23.683432] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.dsv\n'}
+[23.698303] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/package.dsv\n'}
+[23.711209] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/packages/openflex_ker_joint_panel\n'}
+[23.721463] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/rviz_common__pluginlib__plugin/openflex_ker_joint_panel\n'}
+[23.733902] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[23.735084] (-) TimerEvent: {}
+[23.745907] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[23.757771] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[23.770109] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/openflex_ker_joint_panelConfig.cmake\n'}
+[23.784134] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/openflex_ker_joint_panelConfig-version.cmake\n'}
+[23.795914] (openflex_ker_joint_panel) StdoutLine: {'line': b'-- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/package.xml\n'}
+[23.811982] (openflex_ker_joint_panel) CommandEnded: {'returncode': 0}
+[23.835440] (-) TimerEvent: {}
+[23.847421] (openflex_ker_joint_panel) JobEnded: {'identifier': 'openflex_ker_joint_panel', 'rc': 0}
+[23.849248] (-) EventReactorShutdown: {}

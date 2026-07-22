@@ -1,0 +1,2 @@
+Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker': PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest -v
+Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker' returned '0': PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest -v

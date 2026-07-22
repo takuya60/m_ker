@@ -1,0 +1,112 @@
+[0.120s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'test', '--packages-select', 'openflex_teleop_ker', 'openflex_ker_joint_panel', '--event-handlers', 'console_direct+']
+[0.120s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='test', build_base='build', install_base='install', merge_install=False, test_result_base=None, retest_until_fail=0, retest_until_pass=0, abort_on_error=False, return_code_on_test_failure=False, executor='parallel', parallel_workers=12, event_handlers=['console_direct+'], ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['openflex_teleop_ker', 'openflex_ker_joint_panel'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], ctest_args=None, python_testing=None, pytest_args=None, pytest_with_coverage=False, unittest_args=None, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x777add85be80>, verb_extension=<colcon_core.verb.test.TestVerb object at 0x777add8187c0>, main=<bound method TestVerb.main of <colcon_core.verb.test.TestVerb object at 0x777add8187c0>>, mixin_verb=('test',))
+[0.232s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.233s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.233s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.233s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.233s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.233s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.233s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/alientek/openflex/openflex_KER/ros2_ws'
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.233s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extensions ['ignore', 'ignore_ament_install']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extension 'ignore'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extension 'ignore_ament_install'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extensions ['colcon_pkg']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extension 'colcon_pkg'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extensions ['colcon_meta']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extension 'colcon_meta'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extensions ['ros']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_ker_joint_panel) by extension 'ros'
+[0.245s] DEBUG:colcon.colcon_core.package_identification:Package 'src/openflex_ker_joint_panel' with type 'ros.ament_cmake' and name 'openflex_ker_joint_panel'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extensions ['ignore', 'ignore_ament_install']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extension 'ignore'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extension 'ignore_ament_install'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extensions ['colcon_pkg']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extension 'colcon_pkg'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extensions ['colcon_meta']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extension 'colcon_meta'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extensions ['ros']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(src/openflex_teleop_ker) by extension 'ros'
+[0.246s] DEBUG:colcon.colcon_core.package_identification:Package 'src/openflex_teleop_ker' with type 'ros.ament_python' and name 'openflex_teleop_ker'
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.246s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'ctest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'python_testing' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'pytest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'pytest_with_coverage' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'unittest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'retest_until_pass' from command line to '0'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_ker_joint_panel' test argument 'retest_until_fail' from command line to '0'
+[0.248s] DEBUG:colcon.colcon_core.verb.test:Testing package 'openflex_ker_joint_panel' with the following arguments: {'build_base': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel', 'ctest_args': None, 'install_base': '/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel', 'path': '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel', 'pytest_args': None, 'pytest_with_coverage': False, 'python_testing': None, 'retest_until_fail': 0, 'retest_until_pass': 0, 'test_result_base': None, 'unittest_args': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'ctest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'python_testing' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'pytest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'pytest_with_coverage' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'unittest_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'retest_until_pass' from command line to '0'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'openflex_teleop_ker' test argument 'retest_until_fail' from command line to '0'
+[0.248s] DEBUG:colcon.colcon_core.verb.test:Testing package 'openflex_teleop_ker' with the following arguments: {'build_base': '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker', 'ctest_args': None, 'install_base': '/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker', 'path': '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker', 'pytest_args': None, 'pytest_with_coverage': False, 'python_testing': None, 'retest_until_fail': 0, 'retest_until_pass': 0, 'test_result_base': None, 'unittest_args': None}
+[0.248s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.249s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.249s] INFO:colcon.colcon_ros.task.ament_cmake.test:Testing ROS package in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel' with build type 'ament_cmake'
+[0.249s] INFO:colcon.colcon_cmake.task.cmake.test:Testing CMake package in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel'
+[0.251s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.251s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.251s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.254s] INFO:colcon.colcon_ros.task.ament_python.test:Testing ROS package in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker' with build type'ament_python'
+[0.254s] INFO:colcon.colcon_core.task.python.test:Testing Python package in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker'
+[0.255s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.255s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.448s] Level 1:colcon.colcon_core.task.python.test:test() by extension 'pytest'
+[0.449s] Level 1:colcon.colcon_core.task.python.test:test() by extension 'setuppy_test'
+[0.449s] Level 1:colcon.colcon_core.task.python.test:test.step() by extension 'setuppy_test'
+[0.450s] Level 5:colcon.colcon_cmake.task.cmake.test:No ctests found in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel'
+[0.451s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker': PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest -v
+[0.480s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[0.481s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_teleop_ker' returned '0': PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest -v
+[0.481s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[0.481s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[0.481s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[0.484s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[0.484s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[0.484s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[0.491s] DEBUG:colcon.colcon_core.event_reactor:joined thread

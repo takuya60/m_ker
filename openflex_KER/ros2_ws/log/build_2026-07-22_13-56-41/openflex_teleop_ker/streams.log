@@ -1,0 +1,29 @@
+[1.384s] Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker': PYTHONPATH=/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/build --no-deps symlink_data
+[1.775s] running develop
+[2.013s] running egg_info
+[2.013s] creating openflex_teleop_ker.egg-info
+[2.013s] writing openflex_teleop_ker.egg-info/PKG-INFO
+[2.014s] writing dependency_links to openflex_teleop_ker.egg-info/dependency_links.txt
+[2.014s] writing entry points to openflex_teleop_ker.egg-info/entry_points.txt
+[2.015s] writing requirements to openflex_teleop_ker.egg-info/requires.txt
+[2.016s] writing top-level names to openflex_teleop_ker.egg-info/top_level.txt
+[2.016s] writing manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'
+[2.017s] reading manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'
+[2.018s] writing manifest file 'openflex_teleop_ker.egg-info/SOURCES.txt'
+[2.020s] running build_ext
+[2.021s] Creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/python3.10/site-packages/openflex-teleop-ker.egg-link (link to .)
+[2.022s] Installing ker_arm_bridge_node script to /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/openflex_teleop_ker
+[2.023s] Installing ker_driver_node script to /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/openflex_teleop_ker
+[2.024s] 
+[2.024s] Installed /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker
+[2.024s] running symlink_data
+[2.024s] creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index
+[2.024s] creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index
+[2.025s] creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index/packages
+[2.025s] symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/resource/openflex_teleop_ker -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/ament_index/resource_index/packages
+[2.025s] symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/package.xml -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker
+[2.025s] creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/config
+[2.025s] symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/config/openflex_ker.yaml -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/config
+[2.025s] creating /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/launch
+[2.025s] symbolically linking /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/launch/openflex_ker_teleop.launch.py -> /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/share/openflex_teleop_ker/launch
+[2.077s] Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker' returned '0': PYTHONPATH=/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_teleop_ker/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_teleop_ker/build --no-deps symlink_data

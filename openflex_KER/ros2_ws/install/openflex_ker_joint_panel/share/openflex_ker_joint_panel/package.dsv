@@ -1,0 +1,11 @@
+source;share/openflex_ker_joint_panel/hook/cmake_prefix_path.ps1
+source;share/openflex_ker_joint_panel/hook/cmake_prefix_path.dsv
+source;share/openflex_ker_joint_panel/hook/cmake_prefix_path.sh
+source;share/openflex_ker_joint_panel/hook/ld_library_path_lib.ps1
+source;share/openflex_ker_joint_panel/hook/ld_library_path_lib.dsv
+source;share/openflex_ker_joint_panel/hook/ld_library_path_lib.sh
+source;share/openflex_ker_joint_panel/local_setup.bash
+source;share/openflex_ker_joint_panel/local_setup.dsv
+source;share/openflex_ker_joint_panel/local_setup.ps1
+source;share/openflex_ker_joint_panel/local_setup.sh
+source;share/openflex_ker_joint_panel/local_setup.zsh

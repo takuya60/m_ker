@@ -1,0 +1,115 @@
+[0.015s] Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel
+[0.306s] -- The C compiler identification is GNU 11.4.0
+[0.423s] -- The CXX compiler identification is GNU 11.4.0
+[0.438s] -- Detecting C compiler ABI info
+[0.521s] -- Detecting C compiler ABI info - done
+[0.526s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.527s] -- Detecting C compile features
+[0.528s] -- Detecting C compile features - done
+[0.533s] -- Detecting CXX compiler ABI info
+[0.604s] -- Detecting CXX compiler ABI info - done
+[0.610s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.610s] -- Detecting CXX compile features
+[0.610s] -- Detecting CXX compile features - done
+[0.612s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.860s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.018s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.062s] -- Found pluginlib: 5.1.4 (/opt/ros/humble/share/pluginlib/cmake)
+[1.158s] -- Found rclcpp: 16.0.19 (/opt/ros/humble/share/rclcpp/cmake)
+[1.203s] -- Found rosidl_generator_c: 3.1.9 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.211s] -- Found rosidl_adapter: 3.1.9 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.225s] -- Found rosidl_generator_cpp: 3.1.9 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.246s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.266s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.334s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.338s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.377s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.470s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.474s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.506s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.512s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.528s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.549s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.567s] -- Looking for pthread.h
+[1.717s] -- Looking for pthread.h - found
+[1.717s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.843s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.845s] -- Found Threads: TRUE  
+[1.934s] -- Found rviz_common: 11.2.27 (/opt/ros/humble/share/rviz_common/cmake)
+[1.943s] -- Setting assimp_DIR to: '/opt/ros/humble/share/rviz_assimp_vendor/cmake/../../../opt/rviz_assimp_vendor/lib/cmake/assimp-4.1'
+[1.953s] -- Setting OGRE_DIR to: '/opt/ros/humble/share/rviz_ogre_vendor/cmake/../../../opt/rviz_ogre_vendor/lib/OGRE/cmake'
+[1.955s] -- Found OGRE
+[1.956s] --   static     : OFF
+[1.956s] --   components : HLMS;MeshLodGenerator;Overlay;Paging;Property;RTShaderSystem;Terrain;Volume
+[1.956s] --   plugins    : Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI
+[1.957s] --   media      : /opt/ros/humble/opt/rviz_ogre_vendor/share/OGRE/Media
+[1.957s] -- OGRE_LIBRARIES: OgreHLMS;OgreMeshLodGenerator;OgreOverlay;OgrePaging;OgreProperty;OgreRTShaderSystem;OgreTerrain;OgreVolume;OgreMain
+[1.957s] -- OGRE_LIBRARY_DIRS: /opt/ros/humble/opt/rviz_ogre_vendor/lib
+[1.957s] -- OGRE_PLUGINS: Plugin_BSPSceneManager;Plugin_OctreeSceneManager;Plugin_PCZSceneManager;Plugin_ParticleFX;RenderSystem_GL;RenderSystem_GL3Plus;Codec_STBI
+[1.957s] -- OGRE_PLUGIN_DIR: /opt/ros/humble/opt/rviz_ogre_vendor/lib/OGRE
+[1.957s] -- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so
+[1.957s] -- rviz_ogre_vendor::OgreOverlay for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreOverlay.so
+[1.957s] -- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_RELEASE: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so
+[1.957s] -- rviz_ogre_vendor::OgreMain for IMPORTED_LOCATION_DEBUG: /opt/ros/humble/opt/rviz_ogre_vendor/lib/libOgreMain.so
+[1.958s] -- Could not find freeimage library
+[1.991s] -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") 
+[2.003s] -- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+[2.185s] -- Found X11: /usr/include   
+[2.187s] -- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so
+[2.306s] -- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so - found
+[2.306s] -- Looking for gethostbyname
+[2.396s] -- Looking for gethostbyname - found
+[2.396s] -- Looking for connect
+[2.478s] -- Looking for connect - found
+[2.479s] -- Looking for remove
+[2.575s] -- Looking for remove - found
+[2.576s] -- Looking for shmat
+[2.673s] -- Looking for shmat - found
+[2.673s] -- Looking for IceConnectionNumber in ICE
+[2.777s] -- Looking for IceConnectionNumber in ICE - found
+[2.878s] -- library: /usr/lib/x86_64-linux-gnu/libcurl.so
+[2.942s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.942s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[3.064s] -- Found std_srvs: 4.9.1 (/opt/ros/humble/share/std_srvs/cmake)
+[3.170s] -- Configuring done
+[3.205s] -- Generating done
+[3.210s] -- Build files have been written to: /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel
+[3.221s] Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/alientek/openflex/openflex_KER/ros2_ws/src/openflex_ker_joint_panel -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel
+[3.223s] Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel -- -j12 -l12
+[3.280s] [ 25%] Automatic MOC for target openflex_ker_joint_panel
+[4.065s] [ 25%] Built target openflex_ker_joint_panel_autogen
+[4.091s] [ 75%] Building CXX object CMakeFiles/openflex_ker_joint_panel.dir/src/joint_angle_panel.cpp.o
+[4.091s] [ 75%] Building CXX object CMakeFiles/openflex_ker_joint_panel.dir/openflex_ker_joint_panel_autogen/mocs_compilation.cpp.o
+[21.570s] [100%] Linking CXX shared library libopenflex_ker_joint_panel.so
+[23.450s] [100%] Built target openflex_ker_joint_panel
+[23.462s] Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel -- -j12 -l12
+[23.474s] Invoking command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel
+[23.481s] -- Install configuration: ""
+[23.481s] -- Execute custom install script
+[23.482s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/plugins/plugin_description.xml
+[23.494s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/lib/libopenflex_ker_joint_panel.so
+[23.504s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/include/openflex_ker_joint_panel/joint_angle_panel.hpp
+[23.514s] -- Up-to-date symlink: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/plugins/plugin_description.xml
+[23.514s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/resource/openflex_ker_joint_panel
+[23.525s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/library_path.sh
+[23.537s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/library_path.dsv
+[23.547s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/package_run_dependencies/openflex_ker_joint_panel
+[23.556s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/parent_prefix_path/openflex_ker_joint_panel
+[23.570s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/ament_prefix_path.sh
+[23.589s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/ament_prefix_path.dsv
+[23.606s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/path.sh
+[23.630s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/environment/path.dsv
+[23.651s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.bash
+[23.662s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.sh
+[23.673s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.zsh
+[23.683s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/local_setup.dsv
+[23.698s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/package.dsv
+[23.711s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/packages/openflex_ker_joint_panel
+[23.721s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/ament_index/resource_index/rviz_common__pluginlib__plugin/openflex_ker_joint_panel
+[23.734s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_include_directories-extras.cmake
+[23.746s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_libraries-extras.cmake
+[23.758s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/ament_cmake_export_dependencies-extras.cmake
+[23.770s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/openflex_ker_joint_panelConfig.cmake
+[23.784s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/cmake/openflex_ker_joint_panelConfig-version.cmake
+[23.796s] -- Symlinking: /home/alientek/openflex/openflex_KER/ros2_ws/install/openflex_ker_joint_panel/share/openflex_ker_joint_panel/package.xml
+[23.812s] Invoked command in '/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel

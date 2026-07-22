@@ -1,0 +1,9 @@
+<library path="openflex_ker_joint_panel">
+  <class
+    name="openflex_ker_joint_panel/JointAnglePanel"
+    type="openflex_ker_joint_panel::JointAnglePanel"
+    base_class_type="rviz_common::Panel">
+    <description>Live OpenFlex KER joint angle monitor.</description>
+  </class>
+</library>
+

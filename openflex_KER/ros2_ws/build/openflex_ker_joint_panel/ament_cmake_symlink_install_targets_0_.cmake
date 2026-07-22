@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/alientek/openflex/openflex_KER/ros2_ws/build/openflex_ker_joint_panel/libopenflex_ker_joint_panel.so" "TARGETS" "openflex_ker_joint_panel" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")
