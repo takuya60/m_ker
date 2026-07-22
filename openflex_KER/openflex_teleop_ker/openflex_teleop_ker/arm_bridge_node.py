@@ -24,6 +24,8 @@ class ArmState:
     active: bool = False
     rejected: bool = False
     warned_no_state: bool = False
+    last_logged_target: np.ndarray | None = None
+    last_log_time: float = 0.0
 
 
 class KerArmBridgeNode(Node):
@@ -41,11 +43,20 @@ class KerArmBridgeNode(Node):
         self.declare_parameter('interpolation_duration', 3.0)
         self.declare_parameter('command_rate_hz', 50.0)
         self.declare_parameter('target_timeout_s', 0.25)
+        self.declare_parameter('log_joint_changes', False)
+        self.declare_parameter('joint_log_rate_hz', 1.0)
+        self.declare_parameter('joint_log_min_change_rad', 0.005)
 
         self._enable_safety = bool(self.get_parameter('enable_safety_check').value)
         self._max_diff = float(self.get_parameter('max_joint_diff_rad').value)
         self._duration = max(0.01, float(self.get_parameter('interpolation_duration').value))
         self._timeout = max(0.01, float(self.get_parameter('target_timeout_s').value))
+        self._log_joint_changes = bool(
+            self.get_parameter('log_joint_changes').value)
+        log_rate = max(0.1, float(self.get_parameter('joint_log_rate_hz').value))
+        self._joint_log_period = 1.0 / log_rate
+        self._joint_log_min_change = max(
+            0.0, float(self.get_parameter('joint_log_min_change_rad').value))
         self._last_target_time = {'left': 0.0, 'right': 0.0}
         self._arms = {'left': ArmState(), 'right': ArmState()}
 
@@ -87,6 +98,7 @@ class KerArmBridgeNode(Node):
         arm.latest_target = target
         arm.latest_gripper = float(by_name[names[7]])
         self._last_target_time[side] = time.monotonic()
+        self._log_target_if_changed(side, arm, target)
 
         if arm.active:
             return
@@ -110,6 +122,23 @@ class KerArmBridgeNode(Node):
         arm.interpolation_started = time.monotonic()
         arm.active = True
         self.get_logger().info(f'[{side}] safe takeover started')
+
+    def _log_target_if_changed(
+            self, side: str, arm: ArmState, target: np.ndarray) -> None:
+        if not self._log_joint_changes:
+            return
+        now = time.monotonic()
+        if now - arm.last_log_time < self._joint_log_period:
+            return
+        if arm.last_logged_target is not None:
+            max_change = float(np.max(np.abs(target - arm.last_logged_target)))
+            if max_change < self._joint_log_min_change:
+                return
+        values = ', '.join(
+            f'J{index}={value:+.3f}' for index, value in enumerate(target, start=1))
+        self.get_logger().info(f'[{side}] KER target [rad]: {values}')
+        arm.last_logged_target = target.copy()
+        arm.last_log_time = now
 
     def _tick(self) -> None:
         now = time.monotonic()

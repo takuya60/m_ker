@@ -47,3 +47,7 @@ openflex_ker_arm_bridge:
     command_rate_hz: 50.0
     # 目标超时时间 0.25秒
     target_timeout_s: 0.25
+    # 仅调试时启用低频关节变化日志
+    log_joint_changes: false
+    joint_log_rate_hz: 1.0
+    joint_log_min_change_rad: 0.005
