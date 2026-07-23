@@ -21,12 +21,27 @@
 #include "M5UnitScroll.h"
 #include "Meta.h"
 
-#ifdef USE_USB
+#if ((defined(USE_USB) ? 1 : 0) + (defined(USE_WIFI) ? 1 : 0) + (defined(USE_SERIAL) ? 1 : 0)) != 1
+#error "Define exactly one of USE_USB, USE_WIFI, or USE_SERIAL"
+#endif
+
+#if defined(USE_USB)
 #include "USBStream.h"
 USBStream stream;
+#elif defined(USE_WIFI)
+#include "WiFiStream.h"
+WiFiStream stream;
 #else
 #include "SerialStream.h"
 SerialStream stream(Serial);
+#endif
+
+#if defined(USE_USB)
+static constexpr const char* ACTIVE_FW_VERSION = FW_VERSION_USB;
+#elif defined(USE_WIFI)
+static constexpr const char* ACTIVE_FW_VERSION = FW_VERSION_WIFI;
+#else
+static constexpr const char* ACTIVE_FW_VERSION = FW_VERSION_SERIAL;
 #endif
 
 // =====================================================
@@ -277,6 +292,15 @@ void guiTask(void* pvParameters) {
             xQueuePeek(guiQueue, &snapshot, 0);
             gui.setJumpStopped(g_state.jump_detected);
             gui.setJumpDetectEnabled(g_state.jump_detect_enabled);
+            #if defined(USE_WIFI)
+                String transport_status = String("WIFI ") + stream.ipAddress();
+                transport_status += stream.clientConnected() ? " C" : " --";
+                gui.setTransportStatus(transport_status);
+            #elif defined(USE_USB)
+                gui.setTransportStatus(stream.mounted() ? "USB CONNECTED" : "USB WAIT");
+            #else
+                gui.setTransportStatus("SERIAL");
+            #endif
             GUICommand cmd = gui.tick(snapshot, AppMode::STANDBY);
 
             switch (cmd.type) {
@@ -336,7 +360,7 @@ void setup() {
         );
     }
 
-    // USB Stream schema
+    // Transport-independent KER schema
     stream.add("timestamp",      Type::UINT32);
     stream.add("angles",         Type::FLOAT, NUM_SENSORS);
     stream.add("errors",         Type::BOOL,  NUM_SENSORS);
@@ -360,10 +384,13 @@ void setup() {
         }
     });
 
-    #ifdef USE_USB
+    #if defined(USE_USB)
+        stream.begin();
+    #elif defined(USE_WIFI)
         stream.begin();
     #else
         Serial.begin(2000000);
+        stream.begin(2000000);
     #endif
 
     // Start in STANDBY mode
@@ -382,7 +409,7 @@ void setup() {
 }
 
 // =====================================================
-// Loop (Core 1) - USB command handling & stream.send()
+// Loop (Core 1) - transport command handling & stream.send()
 // =====================================================
 void loop() {
     static SensorSnapshot snapshot;
@@ -390,10 +417,16 @@ void loop() {
 
     stream.recv(cmd_buf, sizeof(cmd_buf));
 
+    #if defined(USE_WIFI)
+        if (g_state.mode == AppMode::STREAM && !stream.clientConnected()) {
+            g_state.mode = AppMode::STANDBY;
+        }
+    #endif
+
     if (g_state.ping_requested) {
         g_state.ping_requested = false;
         xQueuePeek(dataQueue, &snapshot, 0);
-        stream.sendPingResponse(snapshot, FW_VERSION, HW_VERSION, LAST_UPDATED);
+        stream.sendPingResponse(snapshot, ACTIVE_FW_VERSION, HW_VERSION, LAST_UPDATED);
     }
 
     if (g_state.mode == AppMode::STANDBY) {

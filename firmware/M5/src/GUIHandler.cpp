@@ -135,6 +135,11 @@ void GUIHandler::drawButtons(bool any_selected, AppMode current_mode) {
     _canvas->setTextColor(TFT_WHITE, jd_color);
     _canvas->setFont(&fonts::Font2);
     _canvas->drawCentreString(_jump_detect_on ? "JD: ON" : "JD: OFF", 290, 5);
+
+    // Active transport status (top-left).
+    _canvas->setTextDatum(middle_left);
+    _canvas->setTextColor(TFT_WHITE, BLACK);
+    _canvas->drawString(_transport_status, 3, 5);
 }
 
 void GUIHandler::drawConfirmDialog() {

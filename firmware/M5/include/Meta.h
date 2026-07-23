@@ -15,9 +15,12 @@
 // include/Meta.h
 #pragma once
 
-#define FW_VERSION   "3.0.0"
+#define FW_VERSION_USB    "3.1.0-usb"
+#define FW_VERSION_SERIAL "3.1.0-ser"
+#define FW_VERSION_WIFI   "3.1.0-wifi"
+#define FW_VERSION         "3.1.0"
 #define HW_VERSION   "3.0.0"
-#define LAST_UPDATED "2026-06-22"
+#define LAST_UPDATED "2026-07-23"
 #define USB_VID 0x303A
 #define USB_PID 0x4002
 #define MANUFACTURER "Enactic, Inc."

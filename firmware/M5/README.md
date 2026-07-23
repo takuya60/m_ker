@@ -1,7 +1,28 @@
 # OpenArm KER M5
 
 OpenArm KER (Kinematically Equivalent Replica) M5 is a 16-channel joint angle DAQ system for the OpenArm robot.
-It reads magnetic encoders via RS-485 and streams joint angles to a PC over USB or serial.
+It reads magnetic encoders via RS-485 and streams joint angles to a PC over USB, serial, or WiFi.
+
+## Transport selection
+
+The M5 transport is fixed at build and flash time. Select exactly one PlatformIO environment:
+
+```bash
+pio run -e usb --target upload
+pio run -e serial --target upload
+pio run -e wifi --target upload
+```
+
+`usb` remains the default. All three builds expose the same KER schema and commands; a build does
+not switch transport at runtime.
+
+Before building `wifi`, copy `include/WiFiConfig.example.h` to `include/WiFiConfig.h` and set the
+robot LAN SSID and password. The local credentials file is ignored by Git. The defaults advertise
+`openarm-ker.local` through mDNS and listen on TCP port `19090`. The M5 display shows its IP address
+and whether a host client is connected.
+
+WiFi mode accepts one TCP client. Keep the M5 and robot host on the same trusted LAN; this version
+does not provide encryption or authentication.
 
 ---
 
@@ -44,12 +65,15 @@ To add a unit not yet supported:
 │   ├── GUIHandler.h      # Touchscreen GUI
 │   ├── RSNexus.h         # RS-485 packet handling
 │   ├── USBStream.h       # USB-OTG vendor stream
-│   └── SerialStream.h    # Serial stream (drop-in replacement for USBStream)
+│   ├── SerialStream.h    # Serial stream (drop-in replacement for USBStream)
+│   ├── WiFiStream.h      # WiFi TCP server stream
+│   └── WiFiConfig.example.h
 ├── src/
 │   ├── GUIHandler.cpp
 │   ├── RSNexus.cpp
 │   ├── USBStream.cpp
-│   └── SerialStream.cpp
+│   ├── SerialStream.cpp
+│   ├── WiFiStream.cpp
 │   └── main.cpp
 └── platformio.ini
 ```
@@ -166,6 +190,7 @@ Put M5Stack into boot mode (hold RST 3 seconds until green LED), then:
 ```bash
 uv run pio run -e usb --target upload     # USB-OTG mode (default)
 uv run pio run -e serial --target upload  # Serial mode
+uv run pio run -e wifi --target upload    # WiFi TCP mode
 ```
 
 Press RST once to reboot.
@@ -182,4 +207,3 @@ pio run -e serial -t upload
 ### 5. PC receiver
 
 https://github.com/enactic/openarm_ker
-

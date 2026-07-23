@@ -28,3 +28,6 @@ __pycache__/
 *venv/
 
 *.sh
+
+# Local WiFi credentials. Commit WiFiConfig.example.h only.
+include/WiFiConfig.h

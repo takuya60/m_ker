@@ -42,6 +42,7 @@ public:
 
     void setJumpStopped(bool val)       { _jump_stopped   = val; }
     void setJumpDetectEnabled(bool val) { _jump_detect_on = val; }
+    void setTransportStatus(const String& value) { _transport_status = value; }
 
     // Returns command from user interaction
     GUICommand tick(const SensorSnapshot& snapshot, AppMode current_mode);
@@ -53,6 +54,7 @@ private:
     uint16_t _pending_mask   = 0;
     bool     _jump_stopped   = false;
     bool     _jump_detect_on = true;
+    String   _transport_status = "TRANSPORT: --";
 
     void       drawBars(const SensorSnapshot& snapshot);
     void       drawButtons(bool any_selected, AppMode current_mode);

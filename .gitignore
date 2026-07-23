@@ -1,0 +1,10 @@
+.vscode/
+
+**/.pio/
+**/.venv*/
+**/__pycache__/
+**/*.pyc
+
+**/build/
+**/install/
+**/log/
