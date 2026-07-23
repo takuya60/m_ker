@@ -17,9 +17,10 @@ openflex_ker_driver:
     drop_command_on_sensor_error: true
     gripper_min_position: 0.0
     gripper_max_position: 0.044
-    # 关节比例系数
-    joint_scales: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                   1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    # 关节比例系数，顺序为右 J1-J7、左 J1-J7。
+    # OpenArmX J7 与 KER 夹爪俯仰的正方向相反，因此左右 J7 使用 -1.0。
+    joint_scales: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
+                   1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0]
     # 关节偏移量
     joint_offsets: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

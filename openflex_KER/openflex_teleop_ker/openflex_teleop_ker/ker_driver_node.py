@@ -38,7 +38,11 @@ class KerDriverNode(Node):
         self.declare_parameter('drop_command_on_sensor_error', True)
         self.declare_parameter('gripper_min_position', 0.0)
         self.declare_parameter('gripper_max_position', 0.044)
-        self.declare_parameter('joint_scales', [1.0] * 14)
+        self.declare_parameter(
+            'joint_scales',
+            [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
+             1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0],
+        )
         self.declare_parameter('joint_offsets', [0.0] * 14)
         self.declare_parameter('source_joint_topic', '/ker/joint_states')
         self.declare_parameter('error_mask_topic', '/ker/error_mask')
