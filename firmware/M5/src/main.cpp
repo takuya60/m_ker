@@ -164,48 +164,6 @@ void acquisitionTask(void* pvParameters) {
         // snapshot.encoder_value  = shared_encoder_value;   // unused
         // snapshot.encoder_button = shared_encoder_button;  // unused
 
-        // Jump detection: distinguish glitch (transient) from zero calibration error (persistent)
-        // Compares each frame to last_good_angle; if deviation persists for JUMP_CONFIRM_FRAMES,
-        // it's a real zero error. If it recovers sooner, it was a glitch - substitute & continue.
-        {
-            static float   last_good_angle[NUM_SENSORS] = {};
-            static bool    last_good_valid[NUM_SENSORS] = {};
-            static uint8_t jump_count[NUM_SENSORS]      = {};
-
-            if (g_state.reset_jump_state.exchange(false)) {
-                memset(last_good_valid, 0, sizeof(last_good_valid));
-                memset(jump_count,      0, sizeof(jump_count));
-            }
-
-            for (int i = 0; i < NUM_SENSORS; i++) {
-                if (!snapshot.sensors[i].error) {
-                    if (g_state.jump_detect_enabled &&
-                        g_state.mode == AppMode::STREAM &&
-                        last_good_valid[i] &&
-                        !ENCODER_CONFIG[i].skip_jump_detect) {
-                        float diff = fabsf(snapshot.sensors[i].angle - last_good_angle[i]);
-                        if (diff >= JUMP_THRESHOLD_DEG) {
-                            if (++jump_count[i] >= JUMP_CONFIRM_FRAMES) {
-                                g_state.jump_detected = true;
-                                g_state.mode = AppMode::STANDBY;
-                            } else {
-                                snapshot.sensors[i].angle = last_good_angle[i];
-                            }
-                        } else {
-                            last_good_angle[i] = snapshot.sensors[i].angle;
-                            jump_count[i] = 0;
-                        }
-                    } else {
-                        last_good_angle[i] = snapshot.sensors[i].angle;
-                        last_good_valid[i] = true;
-                        jump_count[i] = 0;
-                    }
-                } else {
-                    last_good_valid[i] = false;
-                }
-            }
-        }
-
         // save jig zero offsets if requested from GUI
         if (g_state.zero_all) {
             g_state.zero_mask = (1u << NUM_SENSORS) - 1;
@@ -249,8 +207,6 @@ void guiTask(void* pvParameters) {
         AppMode current_mode = g_state.mode;
 
         xQueuePeek(guiQueue, &snapshot, 0);
-        gui.setJumpStopped(g_state.jump_detected);
-        gui.setJumpDetectEnabled(g_state.jump_detect_enabled);
         #if defined(USE_WIFI)
             String transport_status = String("WIFI ") + stream.ipAddress();
             transport_status += stream.clientConnected() ? " C" : " --";
@@ -264,15 +220,10 @@ void guiTask(void* pvParameters) {
 
         switch (cmd.type) {
             case GUICommand::Type::START:
-                g_state.reset_jump_state = true;
-                g_state.jump_detected = false;
                 g_state.mode = AppMode::STREAM;
                 break;
             case GUICommand::Type::STOP:
                 g_state.mode = AppMode::STANDBY;
-                break;
-            case GUICommand::Type::TOGGLE_JUMP_DETECT:
-                g_state.jump_detect_enabled = !g_state.jump_detect_enabled.load();
                 break;
             case GUICommand::Type::ZERO_ALL:
                 g_state.zero_all = true;

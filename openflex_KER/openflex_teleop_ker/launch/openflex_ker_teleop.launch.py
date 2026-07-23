@@ -14,13 +14,11 @@ def generate_launch_description():
     default_config = os.path.join(package_share, 'config', 'openflex_ker.yaml')
     config = LaunchConfiguration('config_file')
     transport = LaunchConfiguration('transport')
-    enable_safety = LaunchConfiguration('enable_safety_check')
 
     return LaunchDescription([
         DeclareLaunchArgument('config_file', default_value=default_config),
         DeclareLaunchArgument(
             'transport', default_value='usb', choices=['usb', 'serial', 'wifi']),
-        DeclareLaunchArgument('enable_safety_check', default_value='true'),
         Node(
             package='openflex_teleop_ker',
             executable='ker_driver_node',
@@ -33,8 +31,6 @@ def generate_launch_description():
             executable='ker_arm_bridge_node',
             name='openflex_ker_arm_bridge',
             output='screen',
-            parameters=[config, {
-                'enable_safety_check': ParameterValue(enable_safety, value_type=bool),
-            }],
+            parameters=[config],
         ),
     ])

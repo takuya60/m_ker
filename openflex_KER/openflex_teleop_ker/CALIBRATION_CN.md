@@ -25,7 +25,7 @@
 - 不启动 `openflex_ker_arm_bridge`。
 - 不向左右臂 forward position controller 发布 KER 命令。
 - 只读取 OpenFlex `/joint_states` 和 KER 角度。
-- 首次验证前保持 `enable_safety_check: true`。
+- 首次验证前将 `max_joint_velocity_rad_s` 设为较低值并人工确认姿态。
 - `/ker/error_mask` 非零时禁止标定。
 
 标定期间建议只启动 OpenFlex bringup、`joint_state_broadcaster` 和单独的 KER 驱动节点。
@@ -99,7 +99,7 @@ const EncoderConfig ENCODER_CONFIG[NUM_SENSORS] = {
 每一项格式为：
 
 ```cpp
-// invert, mech_min, mech_max, mech_joint_offset, skip_jump_detect
+// invert, mech_min, mech_max, mech_joint_offset
 ```
 
 标定时主要修改第 4 个字段 `mech_joint_offset`。
@@ -177,7 +177,7 @@ ker/firmware/M5/include/AngleProcessor.h
 ker/firmware/M5/src/main.cpp
 ```
 
-`AngleProcessor.h` 继续负责方向处理和 0/360 度展开；`main.cpp` 继续负责 Zero 命令、单通道 Zero、NVS 保存和 Jump Detection。
+`AngleProcessor.h` 继续负责方向处理和 0/360 度展开；`main.cpp` 继续负责 Zero 命令、单通道 Zero 和 NVS 保存。
 
 ## 5. 验证 OpenFlex 下垂姿态确实为全零
 
@@ -294,8 +294,7 @@ pio run -e serial --target upload
 
 1. M5 正常启动。
 2. 16 路编码器均可读取。
-3. Jump Detection 没有立即触发。
-4. Ping 返回修改后的固件版本。
+3. Ping 返回修改后的固件版本。
 
 ```bash
 ros2 service call /ker/ping std_srvs/srv/Trigger
@@ -450,7 +449,7 @@ ros2 topic echo /ker/left_arm/joint_command --once
 接近 `0 deg`。两个夹爪的固件角度也是 `0 deg`，但经过 ROS 开度转换后，夹爪目标
 为 `0.044`，表示完全张开。
 
-### 出现 Jump Detected
+### 角度出现异常跳变
 
 检查：
 
@@ -459,7 +458,7 @@ ros2 topic echo /ker/left_arm/joint_command --once
 - 编码器方向和通道是否正确。
 - 编码器是否松动或通信异常。
 
-不要长期关闭 Jump Detection。
+检查并修复数据源后再继续遥操；ROS 低通滤波和限速插值只能降低突变影响，不能修复硬件故障。
 
 ### 重启后角度变化约 360 度
 
@@ -489,7 +488,7 @@ ros2 topic echo /ker/left_arm/joint_command --once
 - [ ] KER 与 OpenFlex 下垂姿态静态误差符合要求。
 - [ ] 两个夹爪开闭方向正确。
 - [ ] 急停可用。
-- [ ] `enable_safety_check` 保持为 `true`。
+- [ ] `max_joint_velocity_rad_s` 已设置为安全速度。
 
 全部通过后才能启动：
 

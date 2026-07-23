@@ -35,6 +35,8 @@ class KerDriverNode(Node):
         self.declare_parameter('publish_rate_hz', 100.0)
         self.declare_parameter('reconnect_interval_s', 2.0)
         self.declare_parameter('use_hampel_filter', False)
+        self.declare_parameter('use_low_pass_filter', True)
+        self.declare_parameter('low_pass_alpha', 0.2)
         self.declare_parameter('drop_command_on_sensor_error', True)
         self.declare_parameter('gripper_min_position', 0.0)
         self.declare_parameter('gripper_max_position', 0.044)
@@ -54,6 +56,8 @@ class KerDriverNode(Node):
 
         self._processor = KerPoseProcessor(
             use_hampel=bool(self.get_parameter('use_hampel_filter').value),
+            use_low_pass=bool(self.get_parameter('use_low_pass_filter').value),
+            low_pass_alpha=float(self.get_parameter('low_pass_alpha').value),
             gripper_min=float(self.get_parameter('gripper_min_position').value),
             gripper_max=float(self.get_parameter('gripper_max_position').value),
             joint_scales=self.get_parameter('joint_scales').value,

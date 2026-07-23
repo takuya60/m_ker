@@ -14,7 +14,6 @@ from launch_ros.parameter_descriptions import ParameterValue
 DEFAULT_TRANSPORT = 'wifi'
 DEFAULT_WIFI_HOST = '192.168.3.114'
 DEFAULT_WIFI_PORT = '19090'
-DEFAULT_ENABLE_SAFETY_CHECK = 'false'
 
 
 def generate_launch_description():
@@ -25,7 +24,6 @@ def generate_launch_description():
     transport = LaunchConfiguration('transport')
     wifi_host = LaunchConfiguration('wifi_host')
     wifi_port = LaunchConfiguration('wifi_port')
-    enable_safety = LaunchConfiguration('enable_safety_check')
 
     openarmx_bringup = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -57,7 +55,6 @@ def generate_launch_description():
         name='openflex_ker_arm_bridge',
         output='screen',
         parameters=[config, {
-            'enable_safety_check': ParameterValue(enable_safety, value_type=bool),
             'left_controller_topic': '/ker/sim/disabled_left_controller/commands',
             'log_joint_changes': True,
             'joint_log_rate_hz': 1.0,
@@ -72,8 +69,6 @@ def generate_launch_description():
             choices=['usb', 'serial', 'wifi']),
         DeclareLaunchArgument('wifi_host', default_value=DEFAULT_WIFI_HOST),
         DeclareLaunchArgument('wifi_port', default_value=DEFAULT_WIFI_PORT),
-        DeclareLaunchArgument(
-            'enable_safety_check', default_value=DEFAULT_ENABLE_SAFETY_CHECK),
         openarmx_bringup,
         ker_driver,
         TimerAction(period=4.0, actions=[right_arm_bridge]),

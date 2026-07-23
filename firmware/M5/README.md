@@ -97,7 +97,6 @@ The touchscreen GUI provides sensor monitoring and control.
 | **Zero Reset (All)** | Tap → confirmation dialog → YES to zero all sensors |
 | **Confirm Zero** | Shown when sensors are selected; tap to zero selected sensors only |
 | **START / STOP** | Begin or end streaming |
-| **JD: ON / OFF** (top-right) | Toggle jump detection on/off |
 
 **Status bar** (below the title area):
 
@@ -105,18 +104,6 @@ The touchscreen GUI provides sensor monitoring and control.
 |---|---|
 | Normal standby | `STANDBY` (white) |
 | Streaming | `STREAMING` (white) |
-| Stopped by jump | `STREAMING STOPPED: Jump Detected` (red) — persists until START is pressed |
-
-### Jump Detection
-
-During streaming, if any joint angle deviates more than `JUMP_THRESHOLD_DEG` (30°) from its last known good value for `JUMP_CONFIRM_FRAMES` consecutive frames, the system:
-
-1. Stops streaming immediately and returns to standby
-2. Shows a 3-second overlay: **"Jump Detected / Recalibrate zero position"**
-3. Keeps the warning in the status bar until the user presses START again
-
-This typically indicates that a zero calibration was recorded at the wrong robot position.
-Use **JD: ON / OFF** in the top-right corner to disable detection temporarily if needed.
 
 ---
 

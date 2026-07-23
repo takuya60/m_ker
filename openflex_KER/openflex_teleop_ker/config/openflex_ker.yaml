@@ -13,6 +13,9 @@ openflex_ker_driver:
     reconnect_interval_s: 2.0
     # 是否开启中值滤波
     use_hampel_filter: false
+    # 一阶低通滤波：alpha 越小越平滑，但延迟越大
+    use_low_pass_filter: true
+    low_pass_alpha: 0.2
     # 是否丢弃传感器错误指令
     drop_command_on_sensor_error: true
     gripper_min_position: 0.0
@@ -39,11 +42,9 @@ openflex_ker_arm_bridge:
     joint_states_topic: /joint_states
     left_controller_topic: /left_forward_position_controller/commands
     right_controller_topic: /right_forward_position_controller/commands
-    enable_safety_check: true
-    # 最大关节差值 50度
-    max_joint_diff_rad: 0.873
-    # 插值时间 3秒
-    interpolation_duration: 3.0
+    # 速度受限插值，所有目标变化均以不超过该速度缓慢跟随
+    max_joint_velocity_rad_s: 0.5
+    max_gripper_velocity_m_s: 0.02
     # 命令频率 50Hz
     command_rate_hz: 50.0
     # 目标超时时间 0.25秒

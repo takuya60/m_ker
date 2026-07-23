@@ -24,7 +24,6 @@ struct GUICommand {
         STOP,
         ZERO_ALL,
         ZERO_MASK,
-        TOGGLE_JUMP_DETECT,
     };
     Type     type = Type::NONE;
     uint16_t mask = 0;
@@ -35,8 +34,6 @@ public:
     GUIHandler();
     void init();
 
-    void setJumpStopped(bool val)       { _jump_stopped   = val; }
-    void setJumpDetectEnabled(bool val) { _jump_detect_on = val; }
     void setTransportStatus(const String& value) { _transport_status = value; }
 
     // Returns command from user interaction
@@ -47,8 +44,6 @@ private:
     bool      _sensor_selected[NUM_SENSORS];
     bool     _confirm_pending = false;
     uint16_t _pending_mask   = 0;
-    bool     _jump_stopped   = false;
-    bool     _jump_detect_on = true;
     String   _transport_status = "TRANSPORT: --";
 
     void       drawBars(const SensorSnapshot& snapshot);

@@ -55,6 +55,28 @@ class HampelFilter:
         return filtered
 
 
+class LowPassFilter:
+    """Per-channel exponential moving average filter."""
+
+    def __init__(self, channels: int = 16, alpha: float = 0.2):
+        if not 0.0 < alpha <= 1.0:
+            raise ValueError('low_pass_alpha must be in the range (0.0, 1.0]')
+        self._alpha = alpha
+        self._state: list[float | None] = [None] * channels
+
+    def process(self, values: Sequence[float]) -> list[float]:
+        filtered = []
+        for index, value in enumerate(values):
+            current = float(value)
+            previous = self._state[index]
+            output = current if previous is None else (
+                self._alpha * current + (1.0 - self._alpha) * previous
+            )
+            self._state[index] = output
+            filtered.append(output)
+        return filtered
+
+
 @dataclass(frozen=True)
 class KerPose:
     source_radians: list[float]
@@ -65,10 +87,12 @@ class KerPose:
 class KerPoseProcessor:
     """Convert firmware angles into source display values and OpenFlex commands."""
 
-    def __init__(self, *, use_hampel: bool = False, gripper_min: float = 0.0,
+    def __init__(self, *, use_hampel: bool = False, use_low_pass: bool = False,
+                 low_pass_alpha: float = 0.2, gripper_min: float = 0.0,
                  gripper_max: float = 0.044, joint_scales: Sequence[float] | None = None,
                  joint_offsets: Sequence[float] | None = None):
-        self._filter = HampelFilter() if use_hampel else None
+        self._hampel_filter = HampelFilter() if use_hampel else None
+        self._low_pass_filter = LowPassFilter(alpha=low_pass_alpha) if use_low_pass else None
         self._gripper_min = gripper_min
         self._gripper_max = gripper_max
         self._scales = list(joint_scales or [1.0] * 14)
@@ -80,8 +104,10 @@ class KerPoseProcessor:
         if len(raw_angles_deg) != 16:
             raise ValueError(f'KER firmware must provide 16 angles, received {len(raw_angles_deg)}')
         angles = list(map(float, raw_angles_deg))
-        if self._filter:
-            angles = self._filter.process(angles)
+        if self._hampel_filter:
+            angles = self._hampel_filter.process(angles)
+        if self._low_pass_filter:
+            angles = self._low_pass_filter.process(angles)
 
         source_radians = [math.radians(value) for value in angles]
         right_joints = self._transform_arm(angles[0:7], 0)

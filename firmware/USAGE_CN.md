@@ -62,13 +62,12 @@ firmware/M5/include/Common.h
 `ENCODER_CONFIG` 每个通道包含：
 
 ```cpp
-{invert, mech_min, mech_max, mech_joint_offset, skip_jump_detect}
+{invert, mech_min, mech_max, mech_joint_offset}
 ```
 
 - `invert`：编码器方向是否反转。
 - `mech_min`、`mech_max`：机械角度范围，也用于启动时的正负 360 度修正。
 - `mech_joint_offset`：执行 Zero 后该姿态对应的机器人角度。
-- `skip_jump_detect`：是否跳过该通道的跳变检测，通常只用于夹爪。
 
 修改这些参数后必须重新编译和烧录 M5 固件。机械 Zero 数据保存在 M5 NVS 中，重新烧录
 普通固件通常不会自动清除 NVS。
@@ -402,7 +401,7 @@ cp include/WiFiConfig.example.h include/WiFiConfig.h
 
 - 确认没有第二个客户端。
 - 确认客户端先 PING/schema，再发送 STREAM。
-- 检查 M5 是否因 Jump Detection 回到 STANDBY。
+- 检查 ROS 驱动日志和网络连接状态。
 
 ### checksum 错误
 

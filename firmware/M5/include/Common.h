@@ -44,8 +44,6 @@
 // =====================================================
 #define NUM_SENSORS 16
 #define MARGIN_DEG          25.0f   // Margin for mechanical limit correction
-#define JUMP_THRESHOLD_DEG   30.0f  // Angle deviation to consider a jump
-#define JUMP_CONFIRM_FRAMES  20      // Consecutive frames before confirming as zero error
 
 // =====================================================
 // Sensor data
@@ -81,29 +79,28 @@ struct EncoderConfig {
     float mech_min;
     float mech_max;
     float mech_joint_offset;
-    bool  skip_jump_detect;
 };
 
 const EncoderConfig ENCODER_CONFIG[NUM_SENSORS] = {
 
-    // invert   mech_min   mech_max   joint_offset  skip_jd   ch    joint
-    {false,    -80.00f,   160.00f,    0.0f,         false},  // ch1   right joint1
-    {true,     -10.00f,   160.00f,    0.0f,         false},  // ch2   right joint2
-    {false,    -90.00f,    90.00f,      0.0f,       false},  // ch3   right joint3
-    {true,       0.00f,   140.00f,      0.0f,       false},  // ch4   right joint4
-    {false,    -90.00f,    90.00f,     0.0f,        false},  // ch5   right joint5
-    {true,     -45.00f,    45.00f,      0.0f,       false},  // ch6   right joint6
-    {true,     -90.00f,    90.00f,     0.00f,       false},  // ch7   right joint7
-    {false,    -90.00f,     5.73f,     0.00f,       true},   // ch8   right gripper
+    // invert   mech_min   mech_max   joint_offset   ch    joint
+    {false,    -80.00f,   160.00f,    0.0f},       // ch1   right joint1
+    {true,     -10.00f,   160.00f,    0.0f},       // ch2   right joint2
+    {false,    -90.00f,    90.00f,    0.0f},       // ch3   right joint3
+    {true,       0.00f,   140.00f,    0.0f},       // ch4   right joint4
+    {false,    -90.00f,    90.00f,    0.0f},       // ch5   right joint5
+    {true,     -45.00f,    45.00f,    0.0f},       // ch6   right joint6
+    {true,     -90.00f,    90.00f,    0.00f},      // ch7   right joint7
+    {false,    -90.00f,     5.73f,    0.00f},      // ch8   right gripper
 
-    {false,   -160.00f,    80.00f,     -20.92f,     false},  // ch9   left  joint1
-    {true,    -160.00f,    10.00f,     0.00f,       false},  // ch10  left  joint2
-    {false,    -90.00f,    90.00f,    73.41f,       false},  // ch11  left  joint3
-    {false,      0.00f,   140.00f,    126.75f,      false},  // ch12  left  joint4
-    {false,    -90.00f,    90.00f,     -26.47f,     false},  // ch13  left  joint5
-    {true,      -45.00f,    45.00f,    -39.83f,     false},  // ch14  left  joint6
-    {true,     -90.00f,    90.00f,      0.00f,      false},  // ch15  left  joint7
-    {false,     -5.73f,    60.00f,      0.00f,      true},   // ch16  left  gripper
+    {false,   -160.00f,    80.00f,  -20.92f},      // ch9   left  joint1
+    {true,    -160.00f,    10.00f,    0.00f},      // ch10  left  joint2
+    {false,    -90.00f,    90.00f,   73.41f},      // ch11  left  joint3
+    {false,      0.00f,   140.00f,  126.75f},      // ch12  left  joint4
+    {false,    -90.00f,    90.00f,  -26.47f},      // ch13  left  joint5
+    {true,     -45.00f,    45.00f,  -39.83f},      // ch14  left  joint6
+    {true,     -90.00f,    90.00f,    0.00f},      // ch15  left  joint7
+    {false,     -5.73f,    60.00f,    0.00f},      // ch16  left  gripper
 
     // debug right using mech stop
     // {false,    -80.00f,   160.00f,    -80.0f},        // ch1   right joint1
@@ -164,9 +161,6 @@ struct SystemState {
     std::atomic<bool>     zero_all       { false };
     std::atomic<uint16_t> zero_mask      { 0 };
     std::atomic<bool>     ping_requested { false };
-    std::atomic<bool>     jump_detected       { false };
-    std::atomic<bool>     jump_detect_enabled { true };
-    std::atomic<bool>     reset_jump_state{false};
     // Only for Core0. We don't need "atomic" here.
     float jig_angle_offsets[NUM_SENSORS] = {};
 };

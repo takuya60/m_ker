@@ -1,10 +1,22 @@
 import math
 import unittest
 
-from openflex_teleop_ker.pose_processor import KerPoseProcessor, map_range
+from openflex_teleop_ker.pose_processor import LowPassFilter, KerPoseProcessor, map_range
 
 
 class PoseProcessorTest(unittest.TestCase):
+    def test_low_pass_filter_smooths_step_input(self):
+        filter_ = LowPassFilter(channels=2, alpha=0.25)
+        self.assertEqual(filter_.process([0.0, 10.0]), [0.0, 10.0])
+        self.assertEqual(filter_.process([100.0, 10.0]), [25.0, 10.0])
+        self.assertEqual(filter_.process([100.0, 10.0]), [43.75, 10.0])
+
+    def test_low_pass_filter_rejects_invalid_alpha(self):
+        for alpha in (0.0, -0.1, 1.1):
+            with self.subTest(alpha=alpha):
+                with self.assertRaises(ValueError):
+                    LowPassFilter(alpha=alpha)
+
     def test_map_range_supports_descending_input(self):
         self.assertAlmostEqual(map_range(0.0, 0.0, -60.0, 0.0, 0.02), 0.0)
         self.assertAlmostEqual(map_range(-60.0, 0.0, -60.0, 0.0, 0.02), 0.02)

@@ -115,26 +115,12 @@ void GUIHandler::drawButtons(bool any_selected, AppMode current_mode) {
     // Status Bar
     _canvas->setFont(&fonts::Font2);
     _canvas->setTextDatum(middle_center);
-    if (_jump_stopped) {
-        uint16_t dark_red = _canvas->color565(80, 0, 0);
-        _canvas->fillRect(0, 20, 320, 18, dark_red);
-        _canvas->setTextColor(TFT_RED, dark_red);
-        _canvas->drawString("STREAMING STOPPED: Jump Detected", 160, 29);
-    } else {
-        _canvas->fillRect(0, 20, 320, 18, BLACK);
-        _canvas->setTextColor(TFT_WHITE, BLACK);
-        if (current_mode == AppMode::STANDBY)
-            _canvas->drawString("STANDBY", 160, 29);
-        else
-            _canvas->drawString("STREAMING", 160, 29);
-    }
-
-    // Jump Detect toggle (top-right, y=4..20)
-    uint16_t jd_color = _jump_detect_on ? _canvas->color565(0, 120, 0) : TFT_DARKGREY;
-    _canvas->fillRoundRect(262, 4, 56, 16, 4, jd_color);
-    _canvas->setTextColor(TFT_WHITE, jd_color);
-    _canvas->setFont(&fonts::Font2);
-    _canvas->drawCentreString(_jump_detect_on ? "JD: ON" : "JD: OFF", 290, 5);
+    _canvas->fillRect(0, 20, 320, 18, BLACK);
+    _canvas->setTextColor(TFT_WHITE, BLACK);
+    if (current_mode == AppMode::STANDBY)
+        _canvas->drawString("STANDBY", 160, 29);
+    else
+        _canvas->drawString("STREAMING", 160, 29);
 
     // Active transport status (top-left).
     _canvas->setTextDatum(middle_left);
@@ -183,7 +169,6 @@ GUICommand GUIHandler::handleTouch(AppMode current_mode) {
     bool zero_btn  = (tp.x >= btn1_x && tp.x <= btn1_x + btn_w && tp.y >= btn_y);
     bool start_btn = (tp.x >= btn2_x && tp.x <= btn2_x + btn_w && tp.y >= btn_y);
     bool bar_area  = (tp.y >= bar_y && tp.y < bar_y + bar_h);
-    bool jd_btn    = (tp.x >= 262 && tp.x <= 318 && tp.y >= 4  && tp.y <= 20);
 
     if (current_mode == AppMode::STREAM) {
         if (start_btn) cmd.type = GUICommand::Type::STOP;
@@ -229,8 +214,6 @@ GUICommand GUIHandler::handleTouch(AppMode current_mode) {
         if (!hit) {
             for (int i = 0; i < NUM_SENSORS; i++) _sensor_selected[i] = false;
         }
-    } else if (jd_btn) {
-        cmd.type = GUICommand::Type::TOGGLE_JUMP_DETECT;
     } else {
         for (int i = 0; i < NUM_SENSORS; i++) _sensor_selected[i] = false;
     }
