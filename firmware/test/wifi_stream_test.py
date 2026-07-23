@@ -9,6 +9,17 @@ import sys
 import time
 
 
+# Default test configuration. Edit these values for the local M5/network.
+DEFAULT_HOST = '192.168.3.114'
+DEFAULT_PORT = 19090
+DEFAULT_DURATION_S = 10.0
+DEFAULT_PRINT_RATE_HZ = 2.0
+DEFAULT_CONNECT_TIMEOUT_S = 3.0
+DEFAULT_SOCKET_TIMEOUT_S = 0.2
+DEFAULT_SCHEMA_TIMEOUT_S = 5.0
+DEFAULT_DATA_TIMEOUT_S = 3.0
+DEFAULT_EXPECT_FW_PREFIX = '3.1.0-wifi'
+
 HEADER_COMMAND = b'\xA5\x43'
 HEADER_PING = b'\xA5\x50'
 HEADER_STREAM = b'\xA5\x5A'
@@ -275,17 +286,21 @@ def run(args: argparse.Namespace) -> int:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Validate KER M5 WiFi PING/schema and streamed encoder data.')
-    parser.add_argument('host', nargs='?', default='openarm-ker.local')
-    parser.add_argument('--port', type=int, default=19090)
-    parser.add_argument('--duration', type=float, default=0.0,
+    parser.add_argument('host', nargs='?', default=DEFAULT_HOST)
+    parser.add_argument('--port', type=int, default=DEFAULT_PORT)
+    parser.add_argument('--duration', type=float, default=DEFAULT_DURATION_S,
                         help='test duration in seconds; 0 runs until Ctrl+C')
-    parser.add_argument('--print-rate', type=float, default=2.0,
+    parser.add_argument('--print-rate', type=float, default=DEFAULT_PRINT_RATE_HZ,
                         help='maximum data print frequency in Hz')
-    parser.add_argument('--connect-timeout', type=float, default=3.0)
-    parser.add_argument('--socket-timeout', type=float, default=0.2)
-    parser.add_argument('--schema-timeout', type=float, default=5.0)
-    parser.add_argument('--data-timeout', type=float, default=3.0)
-    parser.add_argument('--expect-fw-prefix', default='')
+    parser.add_argument('--connect-timeout', type=float,
+                        default=DEFAULT_CONNECT_TIMEOUT_S)
+    parser.add_argument('--socket-timeout', type=float,
+                        default=DEFAULT_SOCKET_TIMEOUT_S)
+    parser.add_argument('--schema-timeout', type=float,
+                        default=DEFAULT_SCHEMA_TIMEOUT_S)
+    parser.add_argument('--data-timeout', type=float,
+                        default=DEFAULT_DATA_TIMEOUT_S)
+    parser.add_argument('--expect-fw-prefix', default=DEFAULT_EXPECT_FW_PREFIX)
     args = parser.parse_args()
     if not 1 <= args.port <= 65535:
         parser.error('--port must be between 1 and 65535')

@@ -223,6 +223,29 @@ pio device monitor -b 115200
 firmware/test/wifi_stream_test.py
 ```
 
+脚本顶部集中定义了默认测试配置：
+
+```python
+DEFAULT_HOST = '192.168.3.114'
+DEFAULT_PORT = 19090
+DEFAULT_DURATION_S = 10.0
+DEFAULT_PRINT_RATE_HZ = 2.0
+DEFAULT_CONNECT_TIMEOUT_S = 3.0
+DEFAULT_SOCKET_TIMEOUT_S = 0.2
+DEFAULT_SCHEMA_TIMEOUT_S = 5.0
+DEFAULT_DATA_TIMEOUT_S = 3.0
+DEFAULT_EXPECT_FW_PREFIX = '3.1.0-wifi'
+```
+
+修改这些常量后，可以不带参数直接运行：
+
+```bash
+cd /home/openflex/openflex_all/openflex_ws/src/m_ker
+python3 firmware/test/wifi_stream_test.py
+```
+
+命令行参数只是临时覆盖默认值，不是必须填写。
+
 测试前确认：
 
 1. M5 已烧录 `wifi` 环境。
