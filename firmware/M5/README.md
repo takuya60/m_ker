@@ -21,8 +21,15 @@ robot LAN SSID and password. The local credentials file is ignored by Git. The d
 `openarm-ker.local` through mDNS and listen on TCP port `19090`. The M5 display shows its IP address
 and whether a host client is connected.
 
+The WiFi build intentionally fails at compile time when `WiFiConfig.h` is missing, so a firmware
+with placeholder credentials cannot be flashed accidentally.
+
 WiFi mode accepts one TCP client. Keep the M5 and robot host on the same trusted LAN; this version
 does not provide encryption or authentication.
+
+If WiFi drops, the firmware closes the active client, stops TCP/mDNS services, reconnects to the
+configured access point, and starts the services again. A failed TCP write also drops the client and
+returns the application to STANDBY until the host reconnects.
 
 ---
 

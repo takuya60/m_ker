@@ -1,5 +1,7 @@
 # OpenArm KER firmware
 
+中文编译、烧录和 USB/WiFi 测试说明见 [USAGE_CN.md](USAGE_CN.md)。
+
 OpenArm KER has 2 firmware:
 
 * [Encoder](encoder/) that collects sensor data and streams them to M5

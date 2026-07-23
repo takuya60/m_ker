@@ -445,7 +445,13 @@ void loop() {
             stream.set("errors",         errors,             NUM_SENSORS);
             // stream.set("encoder_value",  snapshot.encoder_value);   // unused
             // stream.set("encoder_button", snapshot.encoder_button);  // unused
-            stream.send();
+            #if defined(USE_WIFI)
+                if (!stream.send()) {
+                    g_state.mode = AppMode::STANDBY;
+                }
+            #else
+                stream.send();
+            #endif
         } else {
             vTaskDelay(pdMS_TO_TICKS(1));
         }

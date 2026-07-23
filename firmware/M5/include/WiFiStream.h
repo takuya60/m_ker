@@ -12,10 +12,7 @@
 #if __has_include("WiFiConfig.h")
 #include "WiFiConfig.h"
 #else
-#define KER_WIFI_SSID     "unset"
-#define KER_WIFI_PASSWORD "unset"
-#define KER_WIFI_HOSTNAME "openarm-ker"
-#define KER_WIFI_PORT     19090
+#error "WiFiConfig.h is required for the WiFi build. Copy WiFiConfig.example.h and configure it."
 #endif
 
 class WiFiStream {
@@ -79,10 +76,11 @@ private:
     size_t _command_size;
 
     void maintainNetwork();
+    void resetNetworkServices();
+    void dropClient();
     void parseCommands();
     bool writeAll(const uint8_t* data, size_t len, uint32_t timeout_ms);
     FieldDef* _find(const char* key);
     uint8_t _checksum() const;
     static size_t _typeSize(Type type);
 };
-

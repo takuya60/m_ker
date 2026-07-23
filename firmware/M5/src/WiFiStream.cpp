@@ -41,12 +41,28 @@ void WiFiStream::begin() {
     _last_wifi_attempt_ms = millis();
 }
 
+void WiFiStream::dropClient() {
+    if (_client) {
+        _client.stop();
+    }
+    _command_size = 0;
+}
+
+void WiFiStream::resetNetworkServices() {
+    dropClient();
+    if (_server_started) {
+        _server.end();
+        _server_started = false;
+    }
+    if (_mdns_started) {
+        MDNS.end();
+        _mdns_started = false;
+    }
+}
+
 void WiFiStream::maintainNetwork() {
     if (WiFi.status() != WL_CONNECTED) {
-        if (_client) {
-            _client.stop();
-        }
-        _command_size = 0;
+        resetNetworkServices();
         if (millis() - _last_wifi_attempt_ms >= 5000) {
             WiFi.disconnect();
             WiFi.begin(KER_WIFI_SSID, KER_WIFI_PASSWORD);
@@ -68,8 +84,7 @@ void WiFiStream::maintainNetwork() {
     }
 
     if (_client && !_client.connected()) {
-        _client.stop();
-        _command_size = 0;
+        dropClient();
     }
     if (!_client || !_client.connected()) {
         WiFiClient candidate = _server.available();
@@ -171,12 +186,17 @@ bool WiFiStream::writeAll(const uint8_t* data, size_t len, uint32_t timeout_ms) 
             sent += written;
             last_progress = millis();
         } else if (millis() - last_progress > timeout_ms) {
+            dropClient();
             return false;
         } else {
             delay(1);
         }
     }
-    return sent == len;
+    if (sent != len) {
+        dropClient();
+        return false;
+    }
+    return true;
 }
 
 bool WiFiStream::send() {
@@ -239,7 +259,9 @@ void WiFiStream::sendPingResponse(const SensorSnapshot& snapshot,
                                   const char* updated) {
     maintainNetwork();
     if (!clientConnected()) return;
-    uint8_t out[256] = {};
+    static constexpr size_t PING_BUFFER_SIZE =
+        2 + 16 + 16 + 12 + 1 + MAX_FIELDS * 18 + NUM_SENSORS * 5;
+    uint8_t out[PING_BUFFER_SIZE] = {};
     size_t pos = 0;
     out[pos++] = 0xA5;
     out[pos++] = 0x50;
@@ -271,4 +293,3 @@ size_t WiFiStream::_typeSize(Type type) {
         default: return 0;
     }
 }
-
