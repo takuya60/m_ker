@@ -3,8 +3,7 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import DeclareLaunchArgument, TimerAction
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
@@ -14,27 +13,16 @@ from launch_ros.parameter_descriptions import ParameterValue
 DEFAULT_TRANSPORT = 'wifi'
 DEFAULT_WIFI_HOST = '192.168.3.114'
 DEFAULT_WIFI_PORT = '19090'
+DEFAULT_BRIDGE_DELAY_S = 1.0
 
 
 def generate_launch_description():
     package_share = get_package_share_directory('openflex_teleop_ker')
-    bringup_share = get_package_share_directory('openarmx_bringup')
     default_config = os.path.join(package_share, 'config', 'openflex_ker.yaml')
     config = LaunchConfiguration('config_file')
     transport = LaunchConfiguration('transport')
     wifi_host = LaunchConfiguration('wifi_host')
     wifi_port = LaunchConfiguration('wifi_port')
-
-    openarmx_bringup = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(bringup_share, 'launch', 'openarmx.bimanual.launch.py')
-        ),
-        launch_arguments={
-            'use_fake_hardware': 'true',
-            'robot_controller': 'forward_position_controller',
-            'enable_forward_effort': 'false',
-        }.items(),
-    )
 
     ker_driver = Node(
         package='openflex_teleop_ker',
@@ -70,7 +58,6 @@ def generate_launch_description():
             choices=['usb', 'serial', 'wifi']),
         DeclareLaunchArgument('wifi_host', default_value=DEFAULT_WIFI_HOST),
         DeclareLaunchArgument('wifi_port', default_value=DEFAULT_WIFI_PORT),
-        openarmx_bringup,
         ker_driver,
-        TimerAction(period=4.0, actions=[right_arm_bridge]),
+        TimerAction(period=DEFAULT_BRIDGE_DELAY_S, actions=[right_arm_bridge]),
     ])

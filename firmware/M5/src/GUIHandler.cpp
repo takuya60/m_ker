@@ -33,10 +33,10 @@ GUICommand GUIHandler::tick(const SensorSnapshot& snapshot, AppMode current_mode
 
     drawBars(snapshot);
     drawButtons(any_selected, current_mode);
-    if (_confirm_pending) drawConfirmDialog();
+    if (_confirm_pending && current_mode == AppMode::STANDBY) drawConfirmDialog();
 
     _canvas->pushSprite(0, 0);
-    return handleTouch();
+    return handleTouch(current_mode);
 }
 void GUIHandler::drawBars(const SensorSnapshot& snapshot) {
     _canvas->setTextColor(TFT_WHITE);
@@ -164,7 +164,7 @@ void GUIHandler::drawConfirmDialog() {
     _canvas->drawCentreString("CANCEL", can_x + btn_w / 2, btn_y + btn_h / 2 - 4);
 }
 
-GUICommand GUIHandler::handleTouch() {
+GUICommand GUIHandler::handleTouch(AppMode current_mode) {
     GUICommand cmd;  // type = NONE
 
     m5::touch_detail_t tp = M5.Touch.getDetail(0);
@@ -184,6 +184,11 @@ GUICommand GUIHandler::handleTouch() {
     bool start_btn = (tp.x >= btn2_x && tp.x <= btn2_x + btn_w && tp.y >= btn_y);
     bool bar_area  = (tp.y >= bar_y && tp.y < bar_y + bar_h);
     bool jd_btn    = (tp.x >= 262 && tp.x <= 318 && tp.y >= 4  && tp.y <= 20);
+
+    if (current_mode == AppMode::STREAM) {
+        if (start_btn) cmd.type = GUICommand::Type::STOP;
+        return cmd;
+    }
 
     if (_confirm_pending) {
         const int yes_x = 55,  btn_y = 130, btn_w = 90, btn_h = 32;

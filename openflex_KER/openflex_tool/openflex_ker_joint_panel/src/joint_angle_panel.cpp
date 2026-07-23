@@ -1,5 +1,6 @@
 #include "openflex_ker_joint_panel/joint_angle_panel.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <utility>
 #include <vector>
@@ -7,6 +8,10 @@
 #include <QGroupBox>
 #include <QHeaderView>
 #include <QHBoxLayout>
+#include <QDockWidget>
+#include <QLayout>
+#include <QSizePolicy>
+#include <QSplitter>
 #include <QVBoxLayout>
 #include <pluginlib/class_list_macros.hpp>
 
@@ -22,10 +27,12 @@ QTableWidget *makeJointTable(QWidget *parent) {
   table->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
   table->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
   table->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+  table->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   table->setSelectionMode(QAbstractItemView::NoSelection);
   table->setAlternatingRowColors(true);
-  table->setMinimumHeight(250);
+  table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  table->setMinimumHeight(80);
   for (int row = 0; row < 8; ++row) {
     table->setItem(row, 0, new QTableWidgetItem(
       row < 7 ? QStringLiteral("J%1").arg(row + 1) : QStringLiteral("夹爪")));
@@ -39,11 +46,14 @@ QTableWidget *makeJointTable(QWidget *parent) {
 }  // namespace
 
 JointAnglePanel::JointAnglePanel(QWidget *parent) : rviz_common::Panel(parent) {
+  setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  setMinimumHeight(0);
   setupUi();
 }
 
 void JointAnglePanel::setupUi() {
   auto *root = new QVBoxLayout();
+  root->setSizeConstraint(QLayout::SetNoConstraint);
   root->setContentsMargins(8, 8, 8, 8);
   root->setSpacing(6);
 
@@ -60,8 +70,11 @@ void JointAnglePanel::setupUi() {
   usb_ping_button_->setToolTip(QStringLiteral("通过 USB 检测 KER 并读取固件信息"));
   wifi_ping_button_ = new QPushButton(QStringLiteral("WiFi Ping"));
   wifi_ping_button_->setToolTip(QStringLiteral("通过局域网检测 KER 并读取固件信息"));
+  float_button_ = new QPushButton(QStringLiteral("浮动窗口"));
+  float_button_->setToolTip(QStringLiteral("浮动后可从四个方向调整面板大小"));
   ping_row->addWidget(usb_ping_button_);
   ping_row->addWidget(wifi_ping_button_);
+  ping_row->addWidget(float_button_);
   root->addLayout(ping_row);
 
   status_label_ = new QLabel(QStringLiteral("等待 RViz 初始化"));
@@ -80,19 +93,28 @@ void JointAnglePanel::setupUi() {
   right_table_ = makeJointTable(right_group);
   right_layout->addWidget(right_table_);
   right_group->setLayout(right_layout);
-  root->addWidget(right_group);
+  right_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   auto *left_group = new QGroupBox(QStringLiteral("左臂"));
   auto *left_layout = new QVBoxLayout();
   left_table_ = makeJointTable(left_group);
   left_layout->addWidget(left_table_);
   left_group->setLayout(left_layout);
-  root->addWidget(left_group);
+  left_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  auto *arms_splitter = new QSplitter(Qt::Vertical);
+  arms_splitter->setChildrenCollapsible(false);
+  arms_splitter->addWidget(right_group);
+  arms_splitter->addWidget(left_group);
+  arms_splitter->setStretchFactor(0, 1);
+  arms_splitter->setStretchFactor(1, 1);
+  root->addWidget(arms_splitter, 1);
   setLayout(root);
 
   connect(apply_button_, &QPushButton::clicked, this, &JointAnglePanel::applyTopic);
   connect(usb_ping_button_, &QPushButton::clicked, this, &JointAnglePanel::pingUsb);
   connect(wifi_ping_button_, &QPushButton::clicked, this, &JointAnglePanel::pingWifi);
+  connect(float_button_, &QPushButton::clicked, this, &JointAnglePanel::toggleFloating);
   connect(topic_edit_, &QLineEdit::returnPressed, this, &JointAnglePanel::applyTopic);
 }
 
@@ -113,6 +135,36 @@ void JointAnglePanel::onInitialize() {
   status_timer_ = new QTimer(this);
   connect(status_timer_, &QTimer::timeout, this, &JointAnglePanel::refreshStatus);
   status_timer_->start(200);
+
+  if (auto *dock = findDockWidget()) {
+    connect(dock, &QDockWidget::topLevelChanged, this, [this](bool floating) {
+      float_button_->setText(floating ? QStringLiteral("停靠窗口") : QStringLiteral("浮动窗口"));
+    });
+  }
+}
+
+QDockWidget *JointAnglePanel::findDockWidget() const {
+  QWidget *widget = parentWidget();
+  while (widget != nullptr) {
+    if (auto *dock = qobject_cast<QDockWidget *>(widget)) {
+      return dock;
+    }
+    widget = widget->parentWidget();
+  }
+  return nullptr;
+}
+
+void JointAnglePanel::toggleFloating() {
+  auto *dock = findDockWidget();
+  if (dock == nullptr) {
+    status_label_->setText(QStringLiteral("无法找到 RViz 停靠窗口"));
+    return;
+  }
+  const bool floating = !dock->isFloating();
+  dock->setFloating(floating);
+  if (floating) {
+    dock->resize(std::max(dock->width(), 520), std::max(dock->height(), 680));
+  }
 }
 
 void JointAnglePanel::subscribe() {

@@ -17,11 +17,6 @@
 #include <M5Unified.h>
 #include "Common.h"
 
-#define STOP_BTN_X  90
-#define STOP_BTN_Y  200
-#define STOP_BTN_W  140
-#define STOP_BTN_H  40
-
 struct GUICommand {
     enum class Type {
         NONE,
@@ -59,5 +54,5 @@ private:
     void       drawBars(const SensorSnapshot& snapshot);
     void       drawButtons(bool any_selected, AppMode current_mode);
     void       drawConfirmDialog();
-    GUICommand handleTouch();
+    GUICommand handleTouch(AppMode current_mode);
 };

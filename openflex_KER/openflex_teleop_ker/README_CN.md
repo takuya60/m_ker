@@ -295,12 +295,44 @@ source /home/openflex/openflex_all/openflex_ws/install/setup.bash
 ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py
 ```
 
+使用 WiFi 固件时：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py \
+  transport:=wifi \
+  wifi_host:=192.168.3.114 \
+  wifi_port:=19090
+```
+
+当前 launch 文件顶部的默认值为：
+
+```python
+DEFAULT_TRANSPORT = 'wifi'
+DEFAULT_WIFI_HOST = '192.168.3.114'
+DEFAULT_WIFI_PORT = '19090'
+```
+
+因此当前设备可以直接启动：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py
+```
+
+命令行参数仍可临时覆盖这些默认值，例如切回 USB：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py transport:=usb
+```
+
+独立测试脚本和 ROS driver 不能同时连接 M5。启动该 launch 前，先停止
+`firmware/test/wifi_stream_test.py`。
+
 该 launch 固定：
 
 - 包含 `openarmx_bringup/openarmx.bimanual.launch.py`。
 - 使用 fake hardware 和 forward position controller。
 - 关闭 forward effort。
-- KER 使用 USB。
+- KER 默认使用 USB，也可通过 launch 参数选择 serial 或 WiFi。
 - 仅仿真覆盖 `drop_command_on_sensor_error=false`。
 - 左臂输出到 `/ker/sim/disabled_left_controller/commands`。
 - 保持初始姿态安全检查。
@@ -349,7 +381,32 @@ ros2 run openflex_teleop_ker ker_driver_node --ros-args \
 -p drop_command_on_sensor_error:=false
 ```
 
-### 9.4 单独启动 bridge
+### 9.4 KER driver 与右臂仿真 bridge 一起启动
+
+推荐用于“终端 1 启动 OpenArmX + RViz，终端 2 启动 KER”的调试方式：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py
+```
+
+该 launch 不启动机器人、controller 或 RViz，只启动：
+
+- `openflex_ker_driver`
+- `openflex_ker_arm_bridge`
+
+默认使用 `wifi / 192.168.3.114 / 19090`，仅在 fake hardware 调试中关闭全局传感器错误
+丢弃，并将左臂 controller 输出隔离到废弃话题。初始姿态安全检查保持开启。
+
+仍可覆盖默认配置：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py \
+  wifi_host:=192.168.3.120
+```
+
+### 9.5 单独启动 bridge
 
 ```bash
 ros2 run openflex_teleop_ker ker_arm_bridge_node --ros-args \

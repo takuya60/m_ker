@@ -6,6 +6,7 @@
 
 #include <QLabel>
 #include <QLineEdit>
+#include <QDockWidget>
 #include <QPushButton>
 #include <QTableWidget>
 #include <QTimer>
@@ -32,6 +33,7 @@ class JointAnglePanel : public rviz_common::Panel {
   void applyTopic();
   void pingUsb();
   void pingWifi();
+  void toggleFloating();
   void refreshStatus();
 
  private:
@@ -43,11 +45,13 @@ class JointAnglePanel : public rviz_common::Panel {
     QPushButton *button);
   void jointStateCallback(const sensor_msgs::msg::JointState::SharedPtr message);
   void updateTable(const sensor_msgs::msg::JointState &message);
+  QDockWidget *findDockWidget() const;
 
   QLineEdit *topic_edit_{nullptr};
   QPushButton *apply_button_{nullptr};
   QPushButton *usb_ping_button_{nullptr};
   QPushButton *wifi_ping_button_{nullptr};
+  QPushButton *float_button_{nullptr};
   QLabel *status_label_{nullptr};
   QLabel *ping_status_label_{nullptr};
   QTableWidget *left_table_{nullptr};

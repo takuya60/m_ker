@@ -340,6 +340,24 @@ ros2 topic hz /ker/joint_states
 ros2 topic echo /ker/error_mask --once
 ```
 
+直接通过 WiFi 启动 OpenArmX fake hardware 和 RViz 遥操：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py \
+  transport:=wifi \
+  wifi_host:=192.168.3.114 \
+  wifi_port:=19090
+```
+
+当前 `openflex_ker_rviz_sim.launch.py` 已将 `192.168.3.114:19090` 定义为默认 WiFi
+端点，因此同一设备可以简化为：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py
+```
+
+仍可使用命令行参数覆盖文件顶部默认值。
+
 测试脚本和 ROS driver 不能同时连接，因为当前固件只接受一个 TCP 客户端。
 
 ## 9. 编码器板固件

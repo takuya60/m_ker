@@ -75,16 +75,6 @@ bool encoder_found = false;
 // volatile int16_t shared_encoder_value  = 0;  // unused
 // volatile uint8_t shared_encoder_button = 0;  // unused
 
-
-
-void drawStopScreen() {
-    M5.Display.fillScreen(BLACK);
-    M5.Display.fillRoundRect(STOP_BTN_X, STOP_BTN_Y, STOP_BTN_W, STOP_BTN_H, 8, TFT_RED);
-    M5.Display.setTextColor(TFT_WHITE);
-    M5.Display.setTextDatum(middle_center);
-    M5.Display.drawString("STOP", STOP_BTN_X + STOP_BTN_W / 2, STOP_BTN_Y + STOP_BTN_H / 2);
-}
-
 // =====================================================
 // Core 0: Sensor task
 // I2C peripheral polling task.
@@ -247,92 +237,53 @@ void acquisitionTask(void* pvParameters) {
 
 // =====================================================
 // Core 1: GUI task
-// STANDBY: Full GUI
-// STREAM:  Bkack out with STOP button, minimal touch handling
+// The live sensor GUI remains visible in both STANDBY and STREAM modes.
+// During STREAM, only the bottom-right STOP button accepts input.
 // =====================================================
 void guiTask(void* pvParameters) {
     static SensorSnapshot snapshot;
-    static AppMode        last_mode = AppMode::STANDBY;
 
     for (;;) {
         M5.update();
 
         AppMode current_mode = g_state.mode;
 
-        if (current_mode != last_mode) {
-            if (current_mode == AppMode::STREAM) {
-                M5.Display.fillScreen(BLACK);
-                M5.Display.setTextColor(TFT_GREEN);
-                M5.Display.setTextDatum(middle_center);
-                M5.Display.setTextFont(&fonts::Font4);
-                M5.Display.drawString("STREAMING START", 160, 120);
-                vTaskDelay(pdMS_TO_TICKS(1000));
+        xQueuePeek(guiQueue, &snapshot, 0);
+        gui.setJumpStopped(g_state.jump_detected);
+        gui.setJumpDetectEnabled(g_state.jump_detect_enabled);
+        #if defined(USE_WIFI)
+            String transport_status = String("WIFI ") + stream.ipAddress();
+            transport_status += stream.clientConnected() ? " C" : " --";
+            gui.setTransportStatus(transport_status);
+        #elif defined(USE_USB)
+            gui.setTransportStatus(stream.mounted() ? "USB CONNECTED" : "USB WAIT");
+        #else
+            gui.setTransportStatus("SERIAL");
+        #endif
+        GUICommand cmd = gui.tick(snapshot, current_mode);
 
-                drawStopScreen();
-            } else if (current_mode == AppMode::STANDBY) {
-                if (g_state.jump_detected) {
-                    // We don't clear jump_detected here. Keep it until START is pressed.
-                    M5.Display.fillScreen(BLACK);
-                    M5.Display.setTextDatum(middle_center);
-                    M5.Display.setFont(&fonts::Font4);
-                    M5.Display.setTextColor(TFT_RED);
-                    M5.Display.drawCentreString("Jump Detected", 160, 95);
-                    M5.Display.setFont(&fonts::Font2);
-                    M5.Display.setTextColor(TFT_WHITE);
-                    M5.Display.drawCentreString("Recalibrate zero position", 160, 135);
-                    vTaskDelay(pdMS_TO_TICKS(3000));
-                }
-                M5.Display.fillScreen(BLACK);
-            }
-            last_mode = current_mode;
+        switch (cmd.type) {
+            case GUICommand::Type::START:
+                g_state.reset_jump_state = true;
+                g_state.jump_detected = false;
+                g_state.mode = AppMode::STREAM;
+                break;
+            case GUICommand::Type::STOP:
+                g_state.mode = AppMode::STANDBY;
+                break;
+            case GUICommand::Type::TOGGLE_JUMP_DETECT:
+                g_state.jump_detect_enabled = !g_state.jump_detect_enabled.load();
+                break;
+            case GUICommand::Type::ZERO_ALL:
+                g_state.zero_all = true;
+                break;
+            case GUICommand::Type::ZERO_MASK:
+                g_state.zero_mask = cmd.mask;
+                break;
+            default:
+                break;
         }
-
-        if (current_mode == AppMode::STANDBY) {
-            // Full GUI
-            xQueuePeek(guiQueue, &snapshot, 0);
-            gui.setJumpStopped(g_state.jump_detected);
-            gui.setJumpDetectEnabled(g_state.jump_detect_enabled);
-            #if defined(USE_WIFI)
-                String transport_status = String("WIFI ") + stream.ipAddress();
-                transport_status += stream.clientConnected() ? " C" : " --";
-                gui.setTransportStatus(transport_status);
-            #elif defined(USE_USB)
-                gui.setTransportStatus(stream.mounted() ? "USB CONNECTED" : "USB WAIT");
-            #else
-                gui.setTransportStatus("SERIAL");
-            #endif
-            GUICommand cmd = gui.tick(snapshot, AppMode::STANDBY);
-
-            switch (cmd.type) {
-                case GUICommand::Type::START:
-                    g_state.reset_jump_state = true;
-                    g_state.jump_detected = false;
-                    g_state.mode = AppMode::STREAM;
-                    break;
-                case GUICommand::Type::TOGGLE_JUMP_DETECT:
-                    g_state.jump_detect_enabled = !g_state.jump_detect_enabled.load();
-                    break;
-                case GUICommand::Type::ZERO_ALL:
-                    g_state.zero_all = true;
-                    break;
-                case GUICommand::Type::ZERO_MASK:
-                    g_state.zero_mask = cmd.mask;
-                    break;
-                default:
-                    break;
-            }
-            vTaskDelay(pdMS_TO_TICKS(33));  // 30fps
-
-        } else {
-            m5::touch_detail_t tp = M5.Touch.getDetail(0);
-            if (tp.wasReleased()) {
-                if (tp.x >= STOP_BTN_X && tp.x <= STOP_BTN_X + STOP_BTN_W &&
-                    tp.y >= STOP_BTN_Y && tp.y <= STOP_BTN_Y + STOP_BTN_H) {
-                    g_state.mode = AppMode::STANDBY;
-                }
-            }
-            vTaskDelay(pdMS_TO_TICKS(50));
-        }
+        vTaskDelay(pdMS_TO_TICKS(33));  // 30fps
     }
 }
 
