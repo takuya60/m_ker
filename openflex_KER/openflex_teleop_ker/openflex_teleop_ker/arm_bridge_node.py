@@ -6,6 +6,7 @@ import time
 
 import numpy as np
 import rclpy
+from rcl_interfaces.msg import SetParametersResult
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64MultiArray
@@ -37,7 +38,7 @@ class KerArmBridgeNode(Node):
             'left_controller_topic', '/left_forward_position_controller/commands')
         self.declare_parameter(
             'right_controller_topic', '/right_forward_position_controller/commands')
-        self.declare_parameter('max_joint_velocity_rad_s', 0.5)
+        self.declare_parameter('max_joint_velocity_rad_s', 3.0)
         self.declare_parameter('max_gripper_velocity_m_s', 0.02)
         self.declare_parameter('command_rate_hz', 50.0)
         self.declare_parameter('target_timeout_s', 0.25)
@@ -58,6 +59,7 @@ class KerArmBridgeNode(Node):
             0.0, float(self.get_parameter('joint_log_min_change_rad').value))
         self._last_target_time = {'left': 0.0, 'right': 0.0}
         self._arms = {'left': ArmState(), 'right': ArmState()}
+        self.add_on_set_parameters_callback(self._on_set_parameters)
 
         self.create_subscription(JointState, self.get_parameter('joint_states_topic').value,
                                  self._state_callback, 10)
@@ -65,7 +67,7 @@ class KerArmBridgeNode(Node):
                                  lambda msg: self._target_callback('left', msg), 10)
         self.create_subscription(JointState, self.get_parameter('right_target_topic').value,
                                  lambda msg: self._target_callback('right', msg), 10)
-        self._publishers = {
+        self._command_publishers = {
             'left': self.create_publisher(
                 Float64MultiArray, self.get_parameter('left_controller_topic').value, 10),
             'right': self.create_publisher(
@@ -77,6 +79,31 @@ class KerArmBridgeNode(Node):
         self.get_logger().info(
             f'KER arm bridge started, max_joint_velocity='
             f'{self._max_joint_velocity:.3f} rad/s')
+
+    def _on_set_parameters(self, parameters):
+        max_joint_velocity = self._max_joint_velocity
+        max_gripper_velocity = self._max_gripper_velocity
+        timeout = self._timeout
+        for parameter in parameters:
+            if parameter.name == 'max_joint_velocity_rad_s':
+                max_joint_velocity = float(parameter.value)
+            elif parameter.name == 'max_gripper_velocity_m_s':
+                max_gripper_velocity = float(parameter.value)
+            elif parameter.name == 'target_timeout_s':
+                timeout = float(parameter.value)
+        if max_joint_velocity <= 0.0:
+            return SetParametersResult(
+                successful=False, reason='max_joint_velocity_rad_s must be greater than zero')
+        if max_gripper_velocity <= 0.0:
+            return SetParametersResult(
+                successful=False, reason='max_gripper_velocity_m_s must be greater than zero')
+        if timeout <= 0.0:
+            return SetParametersResult(
+                successful=False, reason='target_timeout_s must be greater than zero')
+        self._max_joint_velocity = max_joint_velocity
+        self._max_gripper_velocity = max_gripper_velocity
+        self._timeout = timeout
+        return SetParametersResult(successful=True)
 
     def _state_callback(self, message: JointState) -> None:
         by_name = dict(zip(message.name, message.position))
@@ -151,7 +178,7 @@ class KerArmBridgeNode(Node):
     def _publish(self, side: str, positions: np.ndarray, gripper: float) -> None:
         message = Float64MultiArray()
         message.data = positions.tolist() + [gripper]
-        self._publishers[side].publish(message)
+        self._command_publishers[side].publish(message)
 
 
 def main(args=None):

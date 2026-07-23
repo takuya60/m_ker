@@ -6,6 +6,7 @@ import threading
 import time
 
 import rclpy
+from rcl_interfaces.msg import SetParametersResult
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from std_msgs.msg import String, UInt16
@@ -54,10 +55,13 @@ class KerDriverNode(Node):
         self.declare_parameter('ping_usb_service', '/ker/ping_usb')
         self.declare_parameter('ping_wifi_service', '/ker/ping_wifi')
 
+        self._use_hampel = bool(self.get_parameter('use_hampel_filter').value)
+        self._use_low_pass = bool(self.get_parameter('use_low_pass_filter').value)
+        self._low_pass_alpha = float(self.get_parameter('low_pass_alpha').value)
         self._processor = KerPoseProcessor(
-            use_hampel=bool(self.get_parameter('use_hampel_filter').value),
-            use_low_pass=bool(self.get_parameter('use_low_pass_filter').value),
-            low_pass_alpha=float(self.get_parameter('low_pass_alpha').value),
+            use_hampel=self._use_hampel,
+            use_low_pass=self._use_low_pass,
+            low_pass_alpha=self._low_pass_alpha,
             gripper_min=float(self.get_parameter('gripper_min_position').value),
             gripper_max=float(self.get_parameter('gripper_max_position').value),
             joint_scales=self.get_parameter('joint_scales').value,
@@ -87,9 +91,41 @@ class KerDriverNode(Node):
         self._stream = None
         self._stream_lock = threading.RLock()
         self._last_connect_attempt_ns = 0
+        self.add_on_set_parameters_callback(self._on_set_parameters)
         rate = max(1.0, float(self.get_parameter('publish_rate_hz').value))
         self._timer = self.create_timer(1.0 / rate, self._tick)
         self.get_logger().info('KER driver started; waiting for device')
+
+    def _on_set_parameters(self, parameters):
+        use_hampel = self._use_hampel
+        use_low_pass = self._use_low_pass
+        low_pass_alpha = self._low_pass_alpha
+        filters_changed = False
+        for parameter in parameters:
+            if parameter.name == 'use_hampel_filter':
+                use_hampel = bool(parameter.value)
+                filters_changed = True
+            elif parameter.name == 'use_low_pass_filter':
+                use_low_pass = bool(parameter.value)
+                filters_changed = True
+            elif parameter.name == 'low_pass_alpha':
+                low_pass_alpha = float(parameter.value)
+                filters_changed = True
+        if not 0.0 < low_pass_alpha <= 1.0:
+            return SetParametersResult(
+                successful=False,
+                reason='low_pass_alpha must be in the range (0.0, 1.0]',
+            )
+        if filters_changed:
+            self._processor.configure_filters(
+                use_hampel=use_hampel,
+                use_low_pass=use_low_pass,
+                low_pass_alpha=low_pass_alpha,
+            )
+            self._use_hampel = use_hampel
+            self._use_low_pass = use_low_pass
+            self._low_pass_alpha = low_pass_alpha
+        return SetParametersResult(successful=True)
 
     def _connect(self, force: bool = False) -> bool:
         reconnect_ns = int(float(self.get_parameter('reconnect_interval_s').value) * 1e9)

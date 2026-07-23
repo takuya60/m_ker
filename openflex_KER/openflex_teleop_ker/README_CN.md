@@ -222,13 +222,16 @@ YAML 还可以配置源话题、错误话题、左右目标话题和三个 Ping 
 | `joint_states_topic` | `/joint_states` | 机器人当前状态。 |
 | `left_controller_topic` | `/left_forward_position_controller/commands` | 左输出。 |
 | `right_controller_topic` | `/right_forward_position_controller/commands` | 右输出。 |
-| `max_joint_velocity_rad_s` | `0.5` | 每个关节最大跟随速度，约 28.6 度/秒。 |
+| `max_joint_velocity_rad_s` | `3.0` | 每个关节最大跟随速度，约 171.9 度/秒。 |
 | `max_gripper_velocity_m_s` | `0.02` | 夹爪最大跟随速度。 |
 | `command_rate_hz` | `50.0` | 命令频率。 |
 | `target_timeout_s` | `0.25` | 目标超时。 |
 | `log_joint_changes` | `false` | 是否打印变化日志。 |
 | `joint_log_rate_hz` | `1.0` | 日志最高频率。 |
 | `joint_log_min_change_rad` | `0.005` | 最小变化阈值。 |
+
+这些滤波和插值参数可在 RViz 的 `openflex_ker_joint_panel/JointAnglePanel` 中切换到
+`运动参数` 页面后在线读取和修改，应用后立即生效。
 
 仿真 launch 默认启用低频日志：
 

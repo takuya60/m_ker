@@ -100,6 +100,13 @@ class KerPoseProcessor:
         if len(self._scales) != 14 or len(self._offsets) != 14:
             raise ValueError('joint_scales and joint_offsets must each contain 14 values')
 
+    def configure_filters(self, *, use_hampel: bool, use_low_pass: bool,
+                          low_pass_alpha: float) -> None:
+        self._hampel_filter = HampelFilter() if use_hampel else None
+        self._low_pass_filter = (
+            LowPassFilter(alpha=low_pass_alpha) if use_low_pass else None
+        )
+
     def process(self, raw_angles_deg: Sequence[float]) -> KerPose:
         if len(raw_angles_deg) != 16:
             raise ValueError(f'KER firmware must provide 16 angles, received {len(raw_angles_deg)}')

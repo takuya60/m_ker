@@ -1,6 +1,9 @@
 # openflex_ker_joint_panel
 
-RViz2 实时 KER 关节角度面板。默认订阅 `/ker/joint_states`，分别显示左右臂 J1-J7 和夹爪的弧度、角度，同时显示消息频率与接收时延。
+RViz2 KER 监控与参数面板，包含两个页面：
+
+- `关节角度`：显示左右臂 J1-J7 和夹爪的弧度、角度、消息频率与接收时延。
+- `运动参数`：读取并在线修改低通/Hampel 滤波、关节与夹爪最大速度、目标超时。
 
 面板中的 `USB Ping` 和 `WiFi Ping` 分别调用 `/ker/ping_usb` 和
 `/ker/ping_wifi`。驱动执行真实连接和官方 KER PING/schema 握手；检查当前传输时会
@@ -37,7 +40,15 @@ RViz 打开后：
 
 面板停靠在 RViz 左侧或右侧时，Qt 的停靠布局默认只能左右调整宽度。点击面板中的
 `浮动窗口` 后，可以从上下左右四个方向调整整个窗口大小；点击 `停靠窗口` 可重新停靠。
-右臂与左臂表格之间还有一条可上下拖动的分割线，可单独调整两张表格的高度比例。
+`关节角度` 页面只有一个整体垂直滚动条。左右臂表格自身不再滚动，缩小面板高度时可从
+话题、状态一直滚动到左右臂全部关节。
+
+面板以 5 ms 周期处理 ROS 回调，可正确统计默认 100 Hz 的 `/ker/joint_states`；该数值是
+面板实际收到的话题频率，不是固件内部采样频率或 bridge 控制频率。
+
+`运动参数` 页面点击 `读取当前参数` 会从 `/openflex_ker_driver` 和
+`/openflex_ker_arm_bridge` 读取运行值；点击 `应用参数` 后立即更新节点，不需要重启。
+其中 `low_pass_alpha` 越小越平滑但延迟越大，关节和夹爪最大速度控制插值追踪速度。
 
 分终端调试时，终端 1 启动 OpenArmX + RViz，终端 2 使用以下命令同时启动 KER driver
 和 bridge：
@@ -54,9 +65,9 @@ ros2 pkg prefix openflex_ker_joint_panel
 
 然后完全关闭并重新启动 RViz。RViz 启动前必须 source 包含该插件的工作空间。
 
-面板内容支持水平和垂直扩展，两张关节表会均分可用高度。需要注意：当 Panel 停靠在
-RViz 左侧或右侧时，Qt Dock 区域本身通常只提供左右分隔条；若要直接拖动上下边界，
-可将 Panel 拖成浮动窗口，或停靠到 RViz 顶部/底部。
+面板内容支持水平和垂直扩展。需要注意：当 Panel 停靠在 RViz 左侧或右侧时，Qt Dock
+区域本身通常只提供左右分隔条；若要直接拖动上下边界，可将 Panel 拖成浮动窗口，或
+停靠到 RViz 顶部/底部。
 
 话题输入框可切换到其他 `sensor_msgs/msg/JointState` 话题。面板同时识别
 `ker_left_*`、`ker_right_*` 和 OpenFlex 的 `openarmx_left_*`、

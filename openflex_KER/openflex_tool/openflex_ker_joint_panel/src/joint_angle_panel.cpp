@@ -6,21 +6,32 @@
 #include <vector>
 
 #include <QGroupBox>
+#include <QFormLayout>
+#include <QFrame>
 #include <QHeaderView>
 #include <QHBoxLayout>
 #include <QDockWidget>
 #include <QLayout>
+#include <QScrollArea>
 #include <QSizePolicy>
-#include <QSplitter>
 #include <QVBoxLayout>
+#include <QWheelEvent>
 #include <pluginlib/class_list_macros.hpp>
 
 namespace openflex_ker_joint_panel {
 namespace {
 constexpr double kRadiansToDegrees = 180.0 / 3.14159265358979323846;
 
+class JointTable : public QTableWidget {
+ public:
+  explicit JointTable(QWidget *parent) : QTableWidget(8, 3, parent) {}
+
+ protected:
+  void wheelEvent(QWheelEvent *event) override { event->ignore(); }
+};
+
 QTableWidget *makeJointTable(QWidget *parent) {
-  auto *table = new QTableWidget(8, 3, parent);
+  auto *table = new JointTable(parent);
   table->setHorizontalHeaderLabels(
     {QStringLiteral("关节"), QStringLiteral("rad"), QStringLiteral("deg")});
   table->verticalHeader()->setVisible(false);
@@ -31,8 +42,11 @@ QTableWidget *makeJointTable(QWidget *parent) {
   table->setEditTriggers(QAbstractItemView::NoEditTriggers);
   table->setSelectionMode(QAbstractItemView::NoSelection);
   table->setAlternatingRowColors(true);
-  table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  table->setMinimumHeight(80);
+  table->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  table->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  table->verticalHeader()->setDefaultSectionSize(28);
+  table->setFixedHeight(8 * 28 + 34);
   for (int row = 0; row < 8; ++row) {
     table->setItem(row, 0, new QTableWidgetItem(
       row < 7 ? QStringLiteral("J%1").arg(row + 1) : QStringLiteral("夹爪")));
@@ -57,13 +71,24 @@ void JointAnglePanel::setupUi() {
   root->setContentsMargins(8, 8, 8, 8);
   root->setSpacing(6);
 
+  tabs_ = new QTabWidget(this);
+  root->addWidget(tabs_);
+
+  auto *joint_scroll = new QScrollArea(tabs_);
+  joint_scroll->setWidgetResizable(true);
+  joint_scroll->setFrameShape(QFrame::NoFrame);
+  auto *joint_page = new QWidget(joint_scroll);
+  auto *joint_layout = new QVBoxLayout(joint_page);
+  joint_layout->setContentsMargins(4, 4, 4, 4);
+  joint_layout->setSpacing(6);
+
   auto *topic_row = new QHBoxLayout();
   topic_edit_ = new QLineEdit(QString::fromStdString(topic_));
   topic_edit_->setToolTip(QStringLiteral("sensor_msgs/msg/JointState 话题"));
   apply_button_ = new QPushButton(QStringLiteral("应用"));
   topic_row->addWidget(topic_edit_);
   topic_row->addWidget(apply_button_);
-  root->addLayout(topic_row);
+  joint_layout->addLayout(topic_row);
 
   auto *ping_row = new QHBoxLayout();
   usb_ping_button_ = new QPushButton(QStringLiteral("USB Ping"));
@@ -75,40 +100,102 @@ void JointAnglePanel::setupUi() {
   ping_row->addWidget(usb_ping_button_);
   ping_row->addWidget(wifi_ping_button_);
   ping_row->addWidget(float_button_);
-  root->addLayout(ping_row);
+  joint_layout->addLayout(ping_row);
 
   status_label_ = new QLabel(QStringLiteral("等待 RViz 初始化"));
   status_label_->setStyleSheet(
     "QLabel { color: #374151; background: #f3f4f6; padding: 6px; border-radius: 4px; }");
-  root->addWidget(status_label_);
+  joint_layout->addWidget(status_label_);
 
   ping_status_label_ = new QLabel(QStringLiteral("设备信息: 未 Ping"));
   ping_status_label_->setWordWrap(true);
   ping_status_label_->setStyleSheet(
     "QLabel { color: #374151; background: #f3f4f6; padding: 6px; border-radius: 4px; }");
-  root->addWidget(ping_status_label_);
+  joint_layout->addWidget(ping_status_label_);
 
   auto *right_group = new QGroupBox(QStringLiteral("右臂"));
   auto *right_layout = new QVBoxLayout();
   right_table_ = makeJointTable(right_group);
   right_layout->addWidget(right_table_);
   right_group->setLayout(right_layout);
-  right_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  right_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
   auto *left_group = new QGroupBox(QStringLiteral("左臂"));
   auto *left_layout = new QVBoxLayout();
   left_table_ = makeJointTable(left_group);
   left_layout->addWidget(left_table_);
   left_group->setLayout(left_layout);
-  left_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  left_group->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
-  auto *arms_splitter = new QSplitter(Qt::Vertical);
-  arms_splitter->setChildrenCollapsible(false);
-  arms_splitter->addWidget(right_group);
-  arms_splitter->addWidget(left_group);
-  arms_splitter->setStretchFactor(0, 1);
-  arms_splitter->setStretchFactor(1, 1);
-  root->addWidget(arms_splitter, 1);
+  joint_layout->addWidget(right_group);
+  joint_layout->addWidget(left_group);
+  joint_layout->addStretch();
+  joint_scroll->setWidget(joint_page);
+  tabs_->addTab(joint_scroll, QStringLiteral("关节角度"));
+
+  auto *parameter_scroll = new QScrollArea(tabs_);
+  parameter_scroll->setWidgetResizable(true);
+  parameter_scroll->setFrameShape(QFrame::NoFrame);
+  auto *parameter_page = new QWidget(parameter_scroll);
+  auto *parameter_layout = new QVBoxLayout(parameter_page);
+  parameter_layout->setContentsMargins(4, 4, 4, 4);
+  parameter_layout->setSpacing(8);
+
+  auto *filter_group = new QGroupBox(QStringLiteral("输入滤波"), parameter_page);
+  auto *filter_form = new QFormLayout(filter_group);
+  low_pass_enabled_ = new QCheckBox(QStringLiteral("启用"), filter_group);
+  hampel_enabled_ = new QCheckBox(QStringLiteral("启用"), filter_group);
+  low_pass_alpha_ = new QDoubleSpinBox(filter_group);
+  low_pass_alpha_->setRange(0.01, 1.0);
+  low_pass_alpha_->setSingleStep(0.05);
+  low_pass_alpha_->setDecimals(2);
+  low_pass_alpha_->setValue(0.2);
+  low_pass_alpha_->setToolTip(QStringLiteral("越小越平滑，但跟随延迟越大"));
+  filter_form->addRow(QStringLiteral("一阶低通"), low_pass_enabled_);
+  filter_form->addRow(QStringLiteral("低通 alpha"), low_pass_alpha_);
+  filter_form->addRow(QStringLiteral("Hampel 异常点"), hampel_enabled_);
+  parameter_layout->addWidget(filter_group);
+
+  auto *motion_group = new QGroupBox(QStringLiteral("速度受限插值"), parameter_page);
+  auto *motion_form = new QFormLayout(motion_group);
+  joint_velocity_ = new QDoubleSpinBox(motion_group);
+  joint_velocity_->setRange(0.01, 10.0);
+  joint_velocity_->setSingleStep(0.1);
+  joint_velocity_->setDecimals(2);
+  joint_velocity_->setSuffix(QStringLiteral(" rad/s"));
+  joint_velocity_->setValue(3.0);
+  gripper_velocity_ = new QDoubleSpinBox(motion_group);
+  gripper_velocity_->setRange(0.001, 0.2);
+  gripper_velocity_->setSingleStep(0.005);
+  gripper_velocity_->setDecimals(3);
+  gripper_velocity_->setSuffix(QStringLiteral(" m/s"));
+  gripper_velocity_->setValue(0.02);
+  target_timeout_ = new QDoubleSpinBox(motion_group);
+  target_timeout_->setRange(0.05, 5.0);
+  target_timeout_->setSingleStep(0.05);
+  target_timeout_->setDecimals(2);
+  target_timeout_->setSuffix(QStringLiteral(" s"));
+  target_timeout_->setValue(0.25);
+  motion_form->addRow(QStringLiteral("关节最大速度"), joint_velocity_);
+  motion_form->addRow(QStringLiteral("夹爪最大速度"), gripper_velocity_);
+  motion_form->addRow(QStringLiteral("目标超时"), target_timeout_);
+  parameter_layout->addWidget(motion_group);
+
+  auto *parameter_buttons = new QHBoxLayout();
+  refresh_parameters_button_ = new QPushButton(QStringLiteral("读取当前参数"));
+  apply_parameters_button_ = new QPushButton(QStringLiteral("应用参数"));
+  parameter_buttons->addWidget(refresh_parameters_button_);
+  parameter_buttons->addWidget(apply_parameters_button_);
+  parameter_layout->addLayout(parameter_buttons);
+  parameter_status_label_ = new QLabel(QStringLiteral("等待节点初始化"));
+  parameter_status_label_->setWordWrap(true);
+  parameter_status_label_->setStyleSheet(
+    "QLabel { color: #374151; background: #f3f4f6; padding: 6px; border-radius: 4px; }");
+  parameter_layout->addWidget(parameter_status_label_);
+  parameter_layout->addStretch();
+  parameter_scroll->setWidget(parameter_page);
+  tabs_->addTab(parameter_scroll, QStringLiteral("运动参数"));
+
   setLayout(root);
 
   connect(apply_button_, &QPushButton::clicked, this, &JointAnglePanel::applyTopic);
@@ -116,12 +203,20 @@ void JointAnglePanel::setupUi() {
   connect(wifi_ping_button_, &QPushButton::clicked, this, &JointAnglePanel::pingWifi);
   connect(float_button_, &QPushButton::clicked, this, &JointAnglePanel::toggleFloating);
   connect(topic_edit_, &QLineEdit::returnPressed, this, &JointAnglePanel::applyTopic);
+  connect(refresh_parameters_button_, &QPushButton::clicked,
+          this, &JointAnglePanel::refreshParameters);
+  connect(apply_parameters_button_, &QPushButton::clicked,
+          this, &JointAnglePanel::applyParameters);
 }
 
 void JointAnglePanel::onInitialize() {
   node_ = std::make_shared<rclcpp::Node>("openflex_ker_joint_panel");
   usb_ping_client_ = node_->create_client<std_srvs::srv::Trigger>("/ker/ping_usb");
   wifi_ping_client_ = node_->create_client<std_srvs::srv::Trigger>("/ker/ping_wifi");
+  driver_parameters_ = std::make_shared<rclcpp::AsyncParametersClient>(
+    node_, "/openflex_ker_driver");
+  bridge_parameters_ = std::make_shared<rclcpp::AsyncParametersClient>(
+    node_, "/openflex_ker_arm_bridge");
   subscribe();
 
   spin_timer_ = new QTimer(this);
@@ -130,11 +225,13 @@ void JointAnglePanel::onInitialize() {
       rclcpp::spin_some(node_);
     }
   });
-  spin_timer_->start(20);
+  spin_timer_->start(5);
 
   status_timer_ = new QTimer(this);
   connect(status_timer_, &QTimer::timeout, this, &JointAnglePanel::refreshStatus);
   status_timer_->start(200);
+
+  QTimer::singleShot(800, this, &JointAnglePanel::refreshParameters);
 
   if (auto *dock = findDockWidget()) {
     connect(dock, &QDockWidget::topLevelChanged, this, [this](bool floating) {
@@ -313,6 +410,138 @@ void JointAnglePanel::refreshStatus() {
   }
 }
 
+void JointAnglePanel::refreshParameters() {
+  if (!driver_parameters_ || !bridge_parameters_ ||
+      !driver_parameters_->service_is_ready() || !bridge_parameters_->service_is_ready()) {
+    parameter_status_label_->setStyleSheet(
+      "QLabel { color: #991b1b; background: #fee2e2; padding: 6px; border-radius: 4px; }");
+    parameter_status_label_->setText(
+      QStringLiteral("参数服务不可用，请确认 driver 和 bridge 已启动"));
+    return;
+  }
+
+  pending_parameter_operations_ = 2;
+  parameter_operation_failed_ = false;
+  parameter_operation_errors_.clear();
+  refresh_parameters_button_->setEnabled(false);
+  apply_parameters_button_->setEnabled(false);
+  parameter_status_label_->setText(QStringLiteral("正在读取参数..."));
+
+  driver_parameters_->get_parameters(
+    {"use_low_pass_filter", "low_pass_alpha", "use_hampel_filter"},
+    [this](auto future) {
+      try {
+        const auto parameters = future.get();
+        low_pass_enabled_->setChecked(parameters.at(0).as_bool());
+        low_pass_alpha_->setValue(parameters.at(1).as_double());
+        hampel_enabled_->setChecked(parameters.at(2).as_bool());
+        finishParameterOperation(true, QString());
+      } catch (const std::exception &error) {
+        finishParameterOperation(false, QStringLiteral("driver: %1").arg(error.what()));
+      }
+    });
+  bridge_parameters_->get_parameters(
+    {"max_joint_velocity_rad_s", "max_gripper_velocity_m_s", "target_timeout_s"},
+    [this](auto future) {
+      try {
+        const auto parameters = future.get();
+        joint_velocity_->setValue(parameters.at(0).as_double());
+        gripper_velocity_->setValue(parameters.at(1).as_double());
+        target_timeout_->setValue(parameters.at(2).as_double());
+        finishParameterOperation(true, QString());
+      } catch (const std::exception &error) {
+        finishParameterOperation(false, QStringLiteral("bridge: %1").arg(error.what()));
+      }
+    });
+}
+
+void JointAnglePanel::applyParameters() {
+  if (!driver_parameters_ || !bridge_parameters_ ||
+      !driver_parameters_->service_is_ready() || !bridge_parameters_->service_is_ready()) {
+    parameter_status_label_->setText(
+      QStringLiteral("参数服务不可用，请确认 driver 和 bridge 已启动"));
+    return;
+  }
+
+  pending_parameter_operations_ = 2;
+  parameter_operation_failed_ = false;
+  parameter_operation_errors_.clear();
+  refresh_parameters_button_->setEnabled(false);
+  apply_parameters_button_->setEnabled(false);
+  parameter_status_label_->setText(QStringLiteral("正在应用参数..."));
+
+  driver_parameters_->set_parameters(
+    {
+      rclcpp::Parameter("use_low_pass_filter", low_pass_enabled_->isChecked()),
+      rclcpp::Parameter("low_pass_alpha", low_pass_alpha_->value()),
+      rclcpp::Parameter("use_hampel_filter", hampel_enabled_->isChecked()),
+    },
+    [this](auto future) {
+      try {
+        bool success = true;
+        QString error;
+        for (const auto &result : future.get()) {
+          if (!result.successful) {
+            success = false;
+            error = QString::fromStdString(result.reason);
+            break;
+          }
+        }
+        finishParameterOperation(success, QStringLiteral("driver: %1").arg(error));
+      } catch (const std::exception &error) {
+        finishParameterOperation(false, QStringLiteral("driver: %1").arg(error.what()));
+      }
+    });
+  bridge_parameters_->set_parameters(
+    {
+      rclcpp::Parameter("max_joint_velocity_rad_s", joint_velocity_->value()),
+      rclcpp::Parameter("max_gripper_velocity_m_s", gripper_velocity_->value()),
+      rclcpp::Parameter("target_timeout_s", target_timeout_->value()),
+    },
+    [this](auto future) {
+      try {
+        bool success = true;
+        QString error;
+        for (const auto &result : future.get()) {
+          if (!result.successful) {
+            success = false;
+            error = QString::fromStdString(result.reason);
+            break;
+          }
+        }
+        finishParameterOperation(success, QStringLiteral("bridge: %1").arg(error));
+      } catch (const std::exception &error) {
+        finishParameterOperation(false, QStringLiteral("bridge: %1").arg(error.what()));
+      }
+    });
+}
+
+void JointAnglePanel::finishParameterOperation(bool success, const QString &message) {
+  if (!success) {
+    parameter_operation_failed_ = true;
+    if (!parameter_operation_errors_.isEmpty()) {
+      parameter_operation_errors_ += QStringLiteral(" | ");
+    }
+    parameter_operation_errors_ += message;
+  }
+  if (--pending_parameter_operations_ > 0) {
+    return;
+  }
+
+  refresh_parameters_button_->setEnabled(true);
+  apply_parameters_button_->setEnabled(true);
+  if (parameter_operation_failed_) {
+    parameter_status_label_->setStyleSheet(
+      "QLabel { color: #991b1b; background: #fee2e2; padding: 6px; border-radius: 4px; }");
+    parameter_status_label_->setText(
+      QStringLiteral("参数操作失败: %1").arg(parameter_operation_errors_));
+  } else {
+    parameter_status_label_->setStyleSheet(
+      "QLabel { color: #166534; background: #dcfce7; padding: 6px; border-radius: 4px; }");
+    parameter_status_label_->setText(QStringLiteral("参数已同步并立即生效"));
+  }
+}
+
 void JointAnglePanel::load(const rviz_common::Config &config) {
   rviz_common::Panel::load(config);
   QString stored_topic;
@@ -321,11 +550,16 @@ void JointAnglePanel::load(const rviz_common::Config &config) {
     topic_edit_->setText(stored_topic);
     subscribe();
   }
+  int stored_page = 0;
+  if (config.mapGetInt("current_page", &stored_page)) {
+    tabs_->setCurrentIndex(std::clamp(stored_page, 0, tabs_->count() - 1));
+  }
 }
 
 void JointAnglePanel::save(rviz_common::Config config) const {
   rviz_common::Panel::save(config);
   config.mapSetValue("joint_topic", QString::fromStdString(topic_));
+  config.mapSetValue("current_page", tabs_->currentIndex());
 }
 
 }  // namespace openflex_ker_joint_panel

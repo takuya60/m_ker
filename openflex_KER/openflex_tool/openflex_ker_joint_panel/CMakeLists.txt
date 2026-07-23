@@ -10,6 +10,7 @@ find_package(ament_cmake REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
 find_package(rclcpp REQUIRED)
+find_package(rcl_interfaces REQUIRED)
 find_package(rviz_common REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
@@ -26,6 +27,7 @@ target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets)
 ament_target_dependencies(${PROJECT_NAME}
   pluginlib
   rclcpp
+  rcl_interfaces
   rviz_common
   sensor_msgs
   std_srvs
@@ -44,5 +46,5 @@ install(FILES resource/${PROJECT_NAME} DESTINATION share/${PROJECT_NAME}/resourc
 
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME})
-ament_export_dependencies(pluginlib rclcpp rviz_common sensor_msgs std_srvs)
+ament_export_dependencies(pluginlib rclcpp rcl_interfaces rviz_common sensor_msgs std_srvs)
 ament_package()
