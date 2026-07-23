@@ -368,12 +368,6 @@ void loop() {
 
     stream.recv(cmd_buf, sizeof(cmd_buf));
 
-    #if defined(USE_WIFI)
-        if (g_state.mode == AppMode::STREAM && !stream.clientConnected()) {
-            g_state.mode = AppMode::STANDBY;
-        }
-    #endif
-
     if (g_state.ping_requested) {
         g_state.ping_requested = false;
         xQueuePeek(dataQueue, &snapshot, 0);
@@ -383,6 +377,15 @@ void loop() {
     if (g_state.mode == AppMode::STANDBY) {
         vTaskDelay(pdMS_TO_TICKS(10));
     } else {
+        #if defined(USE_WIFI)
+            // STREAM is a user-selected mode. Keep it active while waiting for
+            // the first client or for a disconnected client to reconnect.
+            if (!stream.clientConnected()) {
+                vTaskDelay(pdMS_TO_TICKS(10));
+                return;
+            }
+        #endif
+
         if (xQueueReceive(dataQueue, &snapshot, 0) == pdTRUE) {
             float angles[NUM_SENSORS];
             bool  errors[NUM_SENSORS];
@@ -396,13 +399,7 @@ void loop() {
             stream.set("errors",         errors,             NUM_SENSORS);
             // stream.set("encoder_value",  snapshot.encoder_value);   // unused
             // stream.set("encoder_button", snapshot.encoder_button);  // unused
-            #if defined(USE_WIFI)
-                if (!stream.send()) {
-                    g_state.mode = AppMode::STANDBY;
-                }
-            #else
-                stream.send();
-            #endif
+            stream.send();
         } else {
             vTaskDelay(pdMS_TO_TICKS(1));
         }
