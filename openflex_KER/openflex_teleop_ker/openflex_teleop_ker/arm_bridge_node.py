@@ -39,7 +39,7 @@ class KerArmBridgeNode(Node):
         self.declare_parameter(
             'right_controller_topic', '/right_forward_position_controller/commands')
         self.declare_parameter('max_joint_velocity_rad_s', 3.0)
-        self.declare_parameter('max_gripper_velocity_m_s', 0.02)
+        self.declare_parameter('max_gripper_velocity_m_s', 0.3)
         self.declare_parameter('command_rate_hz', 50.0)
         self.declare_parameter('target_timeout_s', 0.25)
         self.declare_parameter('log_joint_changes', False)

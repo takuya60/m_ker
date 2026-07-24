@@ -105,7 +105,7 @@ openflex_KER/openflex_teleop_ker/config/openflex_ker.yaml
 | 参数 | 默认值 | 说明 |
 |---|---:|---|
 | `max_joint_velocity_rad_s` | `3.0` | 关节最大跟随速度。 |
-| `max_gripper_velocity_m_s` | `0.02` | 夹爪最大跟随速度。 |
+| `max_gripper_velocity_m_s` | `0.3` | 夹爪最大跟随速度；Panel 可配置范围为 `0.001-1.0 m/s`。 |
 | `command_rate_hz` | `50.0` | 控制器命令发布频率。 |
 | `target_timeout_s` | `0.25` | 无新目标后停止发布的时间。 |
 | `log_joint_changes` | `false` | 是否打印低频关节变化日志。 |
@@ -169,15 +169,50 @@ ros2 launch openflex_teleop_ker openflex_ker_teleop.launch.py
 ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py
 ```
 
+覆盖滤波、速度和目标超时参数：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py \
+  drop_command_on_sensor_error:=false \
+  use_low_pass_filter:=true \
+  low_pass_alpha:=0.2 \
+  max_joint_velocity_rad_s:=3.0 \
+  max_gripper_velocity_m_s:=0.3 \
+  target_timeout_s:=0.25
+```
+
+`ros2 launch` 只能覆盖 launch 文件通过 `DeclareLaunchArgument` 声明的参数。查看当前
+支持的全部参数：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py --show-args
+```
+
 该 launch 默认使用：
 
 ```text
 transport=wifi
-wifi_host=192.168.3.114
+wifi_host=192.168.3.112
 wifi_port=19090
 ```
 
-### 6.3 一键启动 RViz 仿真
+### 6.3 单独启动双臂 RViz
+
+只启动 OpenArmX 双臂 fake hardware、forward position controller 和 RViz，不连接 KER：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openarmx_bringup openarmx.bimanual.launch.py \
+  use_fake_hardware:=true \
+  robot_controller:=forward_position_controller \
+  enable_forward_effort:=false
+```
+
+需要 KER 遥操时，在另一个终端启动
+`openflex_ker_right_sim_teleop.launch.py`。
+
+### 6.4 一键启动 RViz 仿真
 
 该 launch 会启动 OpenArmX fake hardware、driver、bridge 和 RViz：
 
@@ -193,6 +228,42 @@ ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py \
   wifi_host:=192.168.3.114 \
   wifi_port:=19090
 ```
+
+### 6.5 真机双臂遥操
+
+真机启动前确认 CAN 接口正确、急停可用、已了解当前缺失的编码器通道，并让 KER 与
+真机处于接近的初始姿态。
+
+终端 1 启动真机、双臂 controller 和 RViz：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openarmx_bringup openarmx.bimanual.launch.py \
+  use_fake_hardware:=false \
+  robot_controller:=forward_position_controller \
+  enable_forward_effort:=false
+```
+
+终端 2 启动 KER driver 和双臂 bridge：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openflex_teleop_ker openflex_ker_teleop.launch.py \
+  transport:=wifi \
+  wifi_host:=openarm-ker.local \
+  wifi_port:=19090 \
+  drop_command_on_sensor_error:=false \
+  max_joint_velocity_rad_s:=3.0 \
+  max_gripper_velocity_m_s:=0.3 \
+  target_timeout_s:=0.25
+```
+
+USB 固件把第二条命令改为 `transport:=usb`。设置
+`drop_command_on_sensor_error:=false` 后，`/ker/error_mask` 仍会报告缺失通道，但 driver
+会继续发布关节目标。缺失通道会使用固件当前提供的值，因此启动前需要确认对应真机关节
+不会发生非预期运动。
 
 ## 7. RViz Panel 使用
 

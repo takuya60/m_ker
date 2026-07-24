@@ -223,7 +223,7 @@ YAML 还可以配置源话题、错误话题、左右目标话题和三个 Ping 
 | `left_controller_topic` | `/left_forward_position_controller/commands` | 左输出。 |
 | `right_controller_topic` | `/right_forward_position_controller/commands` | 右输出。 |
 | `max_joint_velocity_rad_s` | `3.0` | 每个关节最大跟随速度，约 171.9 度/秒。 |
-| `max_gripper_velocity_m_s` | `0.02` | 夹爪最大跟随速度。 |
+| `max_gripper_velocity_m_s` | `0.3` | 夹爪最大跟随速度；面板可配置范围为 `0.001-1.0 m/s`。 |
 | `command_rate_hz` | `50.0` | 命令频率。 |
 | `target_timeout_s` | `0.25` | 目标超时。 |
 | `log_joint_changes` | `false` | 是否打印变化日志。 |
@@ -287,7 +287,23 @@ ros2 pkg prefix openflex_teleop_ker
 
 ## 9. 启动
 
-### 9.1 RViz fake hardware 一键仿真
+### 9.1 单独启动双臂 RViz
+
+只启动 OpenArmX 双臂 fake hardware、controller 和 RViz，不连接 KER：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openarmx_bringup openarmx.bimanual.launch.py \
+  use_fake_hardware:=true \
+  robot_controller:=forward_position_controller \
+  enable_forward_effort:=false
+```
+
+该命令适合作为第一个终端，然后在第二个终端启动
+`openflex_ker_right_sim_teleop.launch.py`。
+
+### 9.2 RViz fake hardware 一键仿真
 
 前提：OpenArmX 实机断电或 CAN 断开；KER J1-J7 在参考零位；没有其他 OpenArmX、
 MoveIt、controller manager 或 KER launch。
@@ -342,7 +358,8 @@ ros2 launch openflex_teleop_ker openflex_ker_rviz_sim.launch.py transport:=usb
 - bridge 延迟 4 秒启动。
 - 以最高 1 Hz 打印变化的关节目标。
 
-只有通道 1-7 时 `error_mask=65408` 是预期值，但此配置禁止用于实机。
+只有通道 1-7 时 `error_mask=65408` 是预期值；设置
+`drop_command_on_sensor_error:=false` 后仍会继续发布目标。
 
 成功日志：
 
@@ -353,7 +370,7 @@ right_forward_position_controller ... activate successful
 [right] rate-limited takeover started
 ```
 
-### 9.2 已有机器人 bringup
+### 9.3 已有机器人 bringup
 
 外部系统必须先启动 `/joint_states` 和左右 forward position controller：
 
@@ -368,10 +385,46 @@ ros2 launch openflex_teleop_ker openflex_ker_teleop.launch.py transport:=serial
 ros2 launch openflex_teleop_ker openflex_ker_teleop.launch.py transport:=wifi
 ```
 
-通用 launch 不启动机器人或 RViz。实机使用前必须完成全部通道标定，并保持
-`drop_command_on_sensor_error=true`。
+通用 launch 不启动机器人或 RViz。`drop_command_on_sensor_error` 可按当前接入的
+编码器数量通过 launch 参数覆盖。
 
-### 9.3 只启动 driver
+### 9.4 真机双臂遥操
+
+真机启动前确认 CAN 接口正确、急停可用、已了解当前缺失的编码器通道，并让 KER 与
+真机处于接近的初始姿态。
+
+终端 1 启动真机、双臂 forward position controller 和 RViz：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openarmx_bringup openarmx.bimanual.launch.py \
+  use_fake_hardware:=false \
+  robot_controller:=forward_position_controller \
+  enable_forward_effort:=false
+```
+
+终端 2 启动 KER driver 和双臂 bridge：
+
+```bash
+source /opt/ros/humble/setup.bash
+source /home/openflex/openflex_all/openflex_ws/install/setup.bash
+ros2 launch openflex_teleop_ker openflex_ker_teleop.launch.py \
+  transport:=wifi \
+  wifi_host:=openarm-ker.local \
+  wifi_port:=19090 \
+  drop_command_on_sensor_error:=false \
+  max_joint_velocity_rad_s:=3.0 \
+  max_gripper_velocity_m_s:=0.3 \
+  target_timeout_s:=0.25
+```
+
+USB 固件将第二条命令中的传输参数改为 `transport:=usb`。设置
+`drop_command_on_sensor_error:=false` 后，错误位仍会发布到 `/ker/error_mask`，但不会
+阻止关节目标发布。缺失通道会使用固件当前提供的值，因此启动前需要确认对应真机关节
+不会发生非预期运动。
+
+### 9.5 只启动 driver
 
 ```bash
 ros2 run openflex_teleop_ker ker_driver_node --ros-args \
@@ -384,7 +437,7 @@ ros2 run openflex_teleop_ker ker_driver_node --ros-args \
 -p drop_command_on_sensor_error:=false
 ```
 
-### 9.4 KER driver 与右臂仿真 bridge 一起启动
+### 9.6 KER driver 与右臂仿真 bridge 一起启动
 
 推荐用于“终端 1 启动 OpenArmX + RViz，终端 2 启动 KER”的调试方式：
 
@@ -399,17 +452,30 @@ ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py
 - `openflex_ker_driver`
 - `openflex_ker_arm_bridge`
 
-默认使用 `wifi / 192.168.3.114 / 19090`，仅在 fake hardware 调试中关闭全局传感器错误
-丢弃，并将左臂 controller 输出隔离到废弃话题。初始姿态安全检查保持开启。
+默认使用 launch 文件顶部配置的 WiFi 地址，仅在 fake hardware 调试中关闭全局传感器
+错误丢弃，并将左臂 controller 输出隔离到废弃话题。bridge 使用速度受限插值接管。
 
 仍可覆盖默认配置：
 
 ```bash
 ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py \
-  wifi_host:=192.168.3.120
+  wifi_host:=192.168.3.120 \
+  drop_command_on_sensor_error:=false \
+  use_low_pass_filter:=true \
+  low_pass_alpha:=0.2 \
+  max_joint_velocity_rad_s:=3.0 \
+  max_gripper_velocity_m_s:=0.3 \
+  target_timeout_s:=0.25
 ```
 
-### 9.5 单独启动 bridge
+只有通过 `DeclareLaunchArgument` 声明的名称才能写在 `ros2 launch` 命令末尾。可用以下
+命令查看当前支持的全部覆盖项：
+
+```bash
+ros2 launch openflex_teleop_ker openflex_ker_right_sim_teleop.launch.py --show-args
+```
+
+### 9.7 单独启动 bridge
 
 ```bash
 ros2 run openflex_teleop_ker ker_arm_bridge_node --ros-args \

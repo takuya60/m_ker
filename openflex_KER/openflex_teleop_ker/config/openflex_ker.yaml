@@ -44,7 +44,7 @@ openflex_ker_arm_bridge:
     right_controller_topic: /right_forward_position_controller/commands
     # 速度受限插值，所有目标变化均以不超过该速度缓慢跟随
     max_joint_velocity_rad_s: 3.0
-    max_gripper_velocity_m_s: 0.02
+    max_gripper_velocity_m_s: 0.3
     # 命令频率 50Hz
     command_rate_hz: 50.0
     # 目标超时时间 0.25秒

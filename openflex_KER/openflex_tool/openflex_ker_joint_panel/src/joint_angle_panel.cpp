@@ -165,11 +165,11 @@ void JointAnglePanel::setupUi() {
   joint_velocity_->setSuffix(QStringLiteral(" rad/s"));
   joint_velocity_->setValue(3.0);
   gripper_velocity_ = new QDoubleSpinBox(motion_group);
-  gripper_velocity_->setRange(0.001, 0.2);
-  gripper_velocity_->setSingleStep(0.005);
+  gripper_velocity_->setRange(0.001, 1.0);
+  gripper_velocity_->setSingleStep(0.05);
   gripper_velocity_->setDecimals(3);
   gripper_velocity_->setSuffix(QStringLiteral(" m/s"));
-  gripper_velocity_->setValue(0.02);
+  gripper_velocity_->setValue(0.3);
   target_timeout_ = new QDoubleSpinBox(motion_group);
   target_timeout_->setRange(0.05, 5.0);
   target_timeout_->setSingleStep(0.05);
