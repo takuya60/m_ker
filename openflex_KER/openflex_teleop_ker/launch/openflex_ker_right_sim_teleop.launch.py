@@ -11,7 +11,7 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 # Default KER transport configuration. Launch arguments can override these values.
 DEFAULT_TRANSPORT = 'wifi'
-DEFAULT_WIFI_HOST = '192.168.3.114'
+DEFAULT_WIFI_HOST = '192.168.3.112'
 DEFAULT_WIFI_PORT = '19090'
 DEFAULT_BRIDGE_DELAY_S = 1.0
 

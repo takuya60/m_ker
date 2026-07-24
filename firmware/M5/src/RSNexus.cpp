@@ -115,7 +115,8 @@ uint32_t RSNexus::getRaw(uint8_t id) const {
 
 bool RSNexus::isValid(uint8_t id) const {
     if (id < 1 || id > JOINTNUM) return false;
-    return _valid[id - 1];
+    uint8_t idx = id - 1;
+    return _valid[idx] && (millis() - _last_seen[idx] <= SENSOR_TIMEOUT_MS);
 }
 
 uint32_t RSNexus::getLastSeen(uint8_t id) const {

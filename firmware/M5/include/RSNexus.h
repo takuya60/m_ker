@@ -17,6 +17,7 @@
 #include <Arduino.h>
 
 #define JOINTNUM 16
+#define SENSOR_TIMEOUT_MS 100
 
 class RSNexus {
 public:

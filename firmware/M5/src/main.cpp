@@ -119,6 +119,7 @@ void acquisitionTask(void* pvParameters) {
 
     SensorSnapshot snapshot;
     uint32_t last_request_time = millis();
+    uint8_t next_sensor_id = 1;
 
     for (;;) {
         snapshot.timestamp = micros();
@@ -128,7 +129,8 @@ void acquisitionTask(void* pvParameters) {
 
         if (now - last_request_time >= 1) {
             last_request_time += 1;
-            rs485nexus.requestPacket(BULK); // Request all joints
+            rs485nexus.requestPacket(next_sensor_id, 1);
+            next_sensor_id = next_sensor_id >= NUM_SENSORS ? 1 : next_sensor_id + 1;
         }
 
         for (int i = 0; i < NUM_SENSORS; i++) {
